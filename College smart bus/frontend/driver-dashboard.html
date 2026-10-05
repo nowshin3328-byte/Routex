@@ -1,0 +1,2211 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ROUTEX - Driver Dashboard</title>
+
+  <!-- Google Font -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f1f5f9;
+      color: #10275c;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar {
+      height: 78px;
+      background: #10275c;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 35px;
+
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      font-size: 32px;
+    }
+
+    .brand-text h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-text p {
+      font-size: 11px;
+      color: #cbd5e1;
+      margin-top: 3px;
+    }
+
+    .portal {
+      background: #2875d8;
+      padding: 9px 15px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 35px 25px 50px;
+    }
+
+    .page-header {
+      margin-bottom: 25px;
+    }
+
+    .page-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .page-header p {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    /* =========================
+       GPS ALERT
+    ========================= */
+
+    .gps-alert {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-left: 5px solid #f97316;
+
+      padding: 18px 20px;
+      border-radius: 12px;
+
+      margin-bottom: 25px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+    .gps-alert-content {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .gps-alert-icon {
+      width: 45px;
+      height: 45px;
+
+      background: #ffedd5;
+      color: #ea580c;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 19px;
+    }
+
+    .gps-alert h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+      color: #9a3412;
+    }
+
+    .gps-alert p {
+      font-size: 12px;
+      color: #7c2d12;
+    }
+
+    .enable-gps-btn {
+      border: none;
+      background: #ea580c;
+      color: white;
+
+      padding: 11px 18px;
+
+      border-radius: 8px;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .enable-gps-btn:hover {
+      background: #c2410c;
+    }
+
+    /* =========================
+       GPS ACTIVE
+    ========================= */
+
+    .gps-active {
+      display: none;
+
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-left: 5px solid #10b981;
+
+      padding: 16px 20px;
+
+      border-radius: 12px;
+
+      margin-bottom: 25px;
+
+      align-items: center;
+      gap: 12px;
+    }
+
+    .gps-active i {
+      color: #059669;
+    }
+
+    .gps-active strong {
+      color: #047857;
+      font-size: 14px;
+    }
+
+    /* =========================
+       DASHBOARD GRID
+    ========================= */
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: white;
+
+      border-radius: 14px;
+
+      padding: 24px;
+
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.07);
+
+      border: 1px solid #e2e8f0;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      margin-bottom: 20px;
+    }
+
+    .card-icon {
+      width: 42px;
+      height: 42px;
+
+      border-radius: 10px;
+
+      background: #eaf2ff;
+      color: #2875d8;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 18px;
+    }
+
+    .card-header h3 {
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    /* =========================
+       INFO ROW
+    ========================= */
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+
+      padding: 13px 0;
+
+      border-bottom: 1px solid #e2e8f0;
+
+      gap: 20px;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .info-value {
+      font-size: 13px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    /* =========================
+       EDIT DRIVER
+    ========================= */
+
+    .edit-card {
+      grid-column: 1 / -1;
+    }
+
+    .edit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+
+      padding: 12px 13px;
+
+      border: 1px solid #dbe3ef;
+
+      border-radius: 8px;
+
+      background: white;
+
+      color: #10275c;
+
+      font-family: "Inter", sans-serif;
+
+      font-size: 13px;
+
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #2875d8;
+
+      box-shadow:
+        0 0 0 3px rgba(40, 117, 216, 0.10);
+    }
+
+    .save-driver-btn {
+      margin-top: 20px;
+
+      border: none;
+
+      background: #2875d8;
+
+      color: white;
+
+      padding: 11px 20px;
+
+      border-radius: 8px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      transition: 0.2s;
+    }
+
+    .save-driver-btn:hover {
+      background: #1f63b8;
+    }
+
+    .save-message {
+      display: none;
+
+      margin-top: 12px;
+
+      padding: 10px 12px;
+
+      background: #ecfdf5;
+
+      color: #047857;
+
+      border-radius: 7px;
+
+      font-size: 12px;
+
+      font-weight: 600;
+    }
+
+    /* =========================
+       BUS INFO
+    ========================= */
+
+    .bus-number {
+      font-size: 24px;
+      font-weight: 800;
+      color: #2875d8;
+
+      margin-bottom: 8px;
+    }
+
+    .route-name {
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    /* =========================
+       TRIP CONTROL
+    ========================= */
+
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+
+      margin-bottom: 20px;
+    }
+
+    .status-box {
+      background: #f8fafc;
+
+      border: 1px solid #e2e8f0;
+
+      border-radius: 10px;
+
+      padding: 13px;
+
+      text-align: center;
+    }
+
+    .status-box span {
+      display: block;
+
+      font-size: 10px;
+      color: #64748b;
+
+      margin-bottom: 6px;
+    }
+
+    .status-box strong {
+      font-size: 12px;
+    }
+
+    .trip-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .trip-btn {
+      flex: 1;
+
+      border: none;
+
+      padding: 12px;
+
+      border-radius: 9px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .start-btn {
+      background: #2875d8;
+      color: white;
+    }
+
+    .start-btn:hover {
+      background: #1f63b8;
+    }
+
+    .stop-btn {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .stop-btn:hover {
+      background: #fecaca;
+    }
+
+    /* =========================
+       LIVE LOCATION
+    ========================= */
+
+    .location-box {
+      background: #f8fafc;
+
+      border-radius: 10px;
+
+      padding: 18px;
+    }
+
+    .coordinate {
+      display: flex;
+      justify-content: space-between;
+
+      padding: 9px 0;
+
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .coordinate:last-child {
+      border-bottom: none;
+    }
+
+    .coordinate span {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .coordinate strong {
+      font-size: 12px;
+    }
+
+    /* =========================
+       MESSAGE
+    ========================= */
+
+    .message {
+      margin-top: 15px;
+
+      padding: 12px;
+
+      background: #eff6ff;
+
+      color: #1d4ed8;
+
+      border-radius: 8px;
+
+      font-size: 12px;
+
+      display: none;
+    }
+
+    /* =========================
+       BOTTOM ACTIONS
+    ========================= */
+
+    .bottom-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .student-dashboard-btn {
+      text-decoration: none;
+
+      background: #2875d8;
+      color: white;
+
+      padding: 11px 20px;
+
+      border-radius: 9px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      transition: 0.2s;
+    }
+
+    .student-dashboard-btn:hover {
+      background: #1f63b8;
+    }
+
+    .logout-btn {
+      border: none;
+
+      background: #dc2626;
+      color: white;
+
+      padding: 11px 20px;
+
+      border-radius: 9px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logout-btn:hover {
+      background: #b91c1c;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 850px) {
+
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .edit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .navbar {
+        padding: 0 18px;
+      }
+
+      .brand-text p {
+        display: none;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .main {
+        padding: 25px 15px 40px;
+      }
+
+      .navbar {
+        height: 70px;
+      }
+
+      .brand-text h1 {
+        font-size: 19px;
+      }
+
+      .portal {
+        display: none;
+      }
+
+      .gps-alert {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .enable-gps-btn {
+        width: 100%;
+      }
+
+      .status-row {
+        grid-template-columns: 1fr;
+      }
+
+      .trip-buttons {
+        flex-direction: column;
+      }
+
+      .bottom-actions {
+        flex-direction: column;
+      }
+
+      .student-dashboard-btn,
+      .logout-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       NAVBAR
+  ========================= -->
+
+  <nav class="navbar">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        🚍
+      </div>
+
+      <div class="brand-text">
+
+        <h1>ROUTEX</h1>
+
+        <p>
+          AI-Based Smart College Bus Tracking & Safety Management System
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="portal">
+      Driver Portal
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       MAIN
+  ========================= -->
+
+  <main class="main">
+
+
+    <div class="page-header">
+
+      <h2>
+        Driver Dashboard
+      </h2>
+
+      <p>
+        Manage your bus trip and share your live location.
+      </p>
+
+    </div>
+
+
+    <!-- =========================
+         GPS WARNING
+    ========================= -->
+
+    <div
+      class="gps-alert"
+      id="gpsAlert"
+    >
+
+      <div class="gps-alert-content">
+
+        <div class="gps-alert-icon">
+
+          <i class="fa-solid fa-location-crosshairs"></i>
+
+        </div>
+
+        <div>
+
+          <h3>
+            GPS / Location is OFF
+          </h3>
+
+          <p>
+            Please turn ON your phone's Location/GPS and allow
+            location permission before starting the trip.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="enable-gps-btn"
+        onclick="enableGPS()"
+      >
+
+        <i class="fa-solid fa-location-dot"></i>
+
+        Enable GPS
+
+      </button>
+
+    </div>
+
+
+    <!-- =========================
+         GPS ACTIVE
+    ========================= -->
+
+    <div
+      class="gps-active"
+      id="gpsActive"
+    >
+
+      <i class="fa-solid fa-circle-check"></i>
+
+      <strong>
+        GPS / Location is Active
+      </strong>
+
+    </div>
+
+
+    <!-- =========================
+         DASHBOARD
+    ========================= -->
+
+    <div class="dashboard-grid">
+
+
+      <!-- DRIVER INFORMATION -->
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div class="card-icon">
+
+            <i class="fa-solid fa-user"></i>
+
+          </div>
+
+          <h3>
+            Driver Information
+          </h3>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span class="info-label">
+            Driver Name
+          </span>
+
+          <span
+            class="info-value"
+            id="driverName"
+          >
+            Driver
+          </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span class="info-label">
+            Driver ID
+          </span>
+
+          <span
+            class="info-value"
+            id="driverId"
+          >
+            driver01
+          </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span class="info-label">
+            Assigned Bus
+          </span>
+
+          <span
+            class="info-value"
+            id="assignedBus"
+          >
+            BUS-06
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- ASSIGNED BUS -->
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div class="card-icon">
+
+            <i class="fa-solid fa-bus"></i>
+
+          </div>
+
+          <h3>
+            Assigned Bus
+          </h3>
+
+        </div>
+
+
+        <div
+          class="bus-number"
+          id="busNumber"
+        >
+          BUS-06
+        </div>
+
+
+        <div
+          class="route-name"
+          id="routeName"
+        >
+          Nehru Stadium Route
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           EDIT DRIVER DETAILS
+      ========================= -->
+
+      <div class="card edit-card">
+
+        <div class="card-header">
+
+          <div class="card-icon">
+
+            <i class="fa-solid fa-user-pen"></i>
+
+          </div>
+
+          <h3>
+            Edit Driver Details
+          </h3>
+
+        </div>
+
+
+        <div class="edit-grid">
+
+
+          <div class="form-group">
+
+            <label for="editDriverName">
+              Driver Name
+            </label>
+
+            <input
+              type="text"
+              id="editDriverName"
+              placeholder="Enter driver name"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="editDriverId">
+              Driver ID
+            </label>
+
+            <input
+              type="text"
+              id="editDriverId"
+              placeholder="Enter driver ID"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="editAssignedBus">
+              Assigned Bus
+            </label>
+
+            <select id="editAssignedBus">
+
+              <option value="BUS-01">
+                BUS-01
+              </option>
+
+              <option value="BUS-06">
+                BUS-06
+              </option>
+
+              <option value="BUS-07">
+                BUS-07
+              </option>
+
+            </select>
+
+          </div>
+
+
+        </div>
+
+
+        <button
+          type="button"
+          class="save-driver-btn"
+          onclick="saveDriverDetails()"
+        >
+
+          <i class="fa-solid fa-floppy-disk"></i>
+
+          Save Changes
+
+        </button>
+
+
+        <div
+          class="save-message"
+          id="saveMessage"
+        ></div>
+
+      </div>
+
+
+      <!-- TRIP CONTROL -->
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div class="card-icon">
+
+            <i class="fa-solid fa-route"></i>
+
+          </div>
+
+          <h3>
+            Trip Control
+          </h3>
+
+        </div>
+
+
+        <div class="status-row">
+
+
+          <div class="status-box">
+
+            <span>
+              TRIP STATUS
+            </span>
+
+            <strong id="tripStatus">
+              Not Started
+            </strong>
+
+          </div>
+
+
+          <div class="status-box">
+
+            <span>
+              GPS
+            </span>
+
+            <strong id="gpsStatus">
+              OFF
+            </strong>
+
+          </div>
+
+
+          <div class="status-box">
+
+            <span>
+              TRACKING
+            </span>
+
+            <strong id="trackingStatus">
+              OFF
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="trip-buttons">
+
+          <button
+            type="button"
+            class="trip-btn start-btn"
+            id="startTripBtn"
+            onclick="startTrip()"
+          >
+
+            <i class="fa-solid fa-play"></i>
+
+            Start Trip
+
+          </button>
+
+
+          <button
+            type="button"
+            class="trip-btn stop-btn"
+            id="stopTripBtn"
+            onclick="stopTrip()"
+          >
+
+            <i class="fa-solid fa-stop"></i>
+
+            Stop Trip
+
+          </button>
+
+        </div>
+
+
+        <div
+          class="message"
+          id="message"
+        ></div>
+
+      </div>
+
+
+      <!-- LIVE LOCATION -->
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div class="card-icon">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+          </div>
+
+          <h3>
+            Live Location
+          </h3>
+
+        </div>
+
+
+        <div class="location-box">
+
+
+          <div class="coordinate">
+
+            <span>
+              Latitude
+            </span>
+
+            <strong id="latitude">
+              --
+            </strong>
+
+          </div>
+
+
+          <div class="coordinate">
+
+            <span>
+              Longitude
+            </span>
+
+            <strong id="longitude">
+              --
+            </strong>
+
+          </div>
+
+
+          <div class="coordinate">
+
+            <span>
+              Last Updated
+            </span>
+
+            <strong id="lastUpdated">
+              --
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- =========================
+         BOTTOM ACTIONS
+    ========================= -->
+
+    <div class="bottom-actions">
+
+
+      <a
+        href="/frontend/index.html"
+        class="student-dashboard-btn"
+      >
+
+        <i class="fa-solid fa-house"></i>
+
+        Student Dashboard
+
+      </a>
+
+
+      <button
+        type="button"
+        class="logout-btn"
+        onclick="logoutDriver()"
+      >
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Logout
+
+      </button>
+
+
+    </div>
+
+
+  </main>
+
+
+  <script>
+
+    /* =====================================================
+       DRIVER DATA
+    ===================================================== */
+
+    let driverId =
+      localStorage.getItem("routexDriverId") || "driver01";
+
+    let assignedBus =
+      localStorage.getItem("routexDriverBus") || "BUS-06";
+
+    let driverName =
+      localStorage.getItem("routexDriverName") || "Driver";
+
+
+    /* =====================================================
+       LOGIN CHECK
+    ===================================================== */
+
+    if (
+      localStorage.getItem("routexDriverLoggedIn") !== "true"
+    ) {
+
+      window.location.href = "driver-login.html";
+
+    }
+
+
+    /* =====================================================
+       DEFAULT BUS ROUTES
+    ===================================================== */
+
+    const defaultRoutes = {
+
+      "BUS-01": "Perambakkam Route",
+
+      "BUS-06": "Nehru Stadium Route",
+
+      "BUS-07": "Madhavaram Route"
+
+    };
+
+
+    /* =====================================================
+       DISPLAY DRIVER INFORMATION
+    ===================================================== */
+
+    function updateDriverDisplay() {
+
+      document.getElementById("driverName").textContent =
+        driverName;
+
+      document.getElementById("driverId").textContent =
+        driverId;
+
+      document.getElementById("assignedBus").textContent =
+        assignedBus;
+
+      document.getElementById("busNumber").textContent =
+        assignedBus;
+
+    }
+
+
+    /* =====================================================
+       LOAD DRIVER NAME FROM ADMIN DATA
+    ===================================================== */
+
+    function loadDriverData() {
+
+      const drivers = JSON.parse(
+        localStorage.getItem("routexDrivers") || "[]"
+      );
+
+
+      /*
+         First try to find the currently logged-in driver.
+      */
+
+      const driver = drivers.find(
+        d => d.id === driverId
+      );
+
+
+      if (driver) {
+
+        driverName =
+          driver.name || driverName;
+
+        assignedBus =
+          driver.bus || assignedBus;
+
+        localStorage.setItem(
+          "routexDriverName",
+          driverName
+        );
+
+        localStorage.setItem(
+          "routexDriverBus",
+          assignedBus
+        );
+
+      }
+
+
+      updateDriverDisplay();
+
+    }
+
+
+    loadDriverData();
+
+
+    /* =====================================================
+       LOAD EDIT FORM
+    ===================================================== */
+
+    function loadEditForm() {
+
+      document.getElementById(
+        "editDriverName"
+      ).value = driverName;
+
+
+      document.getElementById(
+        "editDriverId"
+      ).value = driverId;
+
+
+      document.getElementById(
+        "editAssignedBus"
+      ).value = assignedBus;
+
+    }
+
+
+    loadEditForm();
+
+
+    /* =====================================================
+       SAVE DRIVER DETAILS
+    ===================================================== */
+
+    function saveDriverDetails() {
+
+      const newName =
+        document
+          .getElementById("editDriverName")
+          .value
+          .trim();
+
+
+      const newId =
+        document
+          .getElementById("editDriverId")
+          .value
+          .trim();
+
+
+      const newBus =
+        document
+          .getElementById("editAssignedBus")
+          .value;
+
+
+      /* VALIDATION */
+
+      if (
+        newName === "" ||
+        newId === "" ||
+        newBus === ""
+      ) {
+
+        alert(
+          "Please enter Driver Name, Driver ID and Assigned Bus."
+        );
+
+        return;
+
+      }
+
+
+      /*
+         Save new values into variables.
+      */
+
+      driverName = newName;
+
+      driverId = newId;
+
+      assignedBus = newBus;
+
+
+      /*
+         Save them into localStorage.
+      */
+
+      localStorage.setItem(
+        "routexDriverName",
+        driverName
+      );
+
+      localStorage.setItem(
+        "routexDriverId",
+        driverId
+      );
+
+      localStorage.setItem(
+        "routexDriverBus",
+        assignedBus
+      );
+
+
+      /*
+         Update the driver list used by Admin.
+      */
+
+      let drivers = JSON.parse(
+        localStorage.getItem("routexDrivers") || "[]"
+      );
+
+
+      /*
+         Look for an existing driver using
+         the saved driver ID.
+      */
+
+      let existingDriver = drivers.find(
+        d => d.id === driverId
+      );
+
+
+      if (existingDriver) {
+
+        existingDriver.name =
+          driverName;
+
+        existingDriver.bus =
+          assignedBus;
+
+      } else {
+
+        /*
+           If no driver exists, create one.
+        */
+
+        drivers.push({
+
+          name: driverName,
+
+          id: driverId,
+
+          bus: assignedBus,
+
+          password: "1234",
+
+          status: "Active"
+
+        });
+
+      }
+
+
+      localStorage.setItem(
+        "routexDrivers",
+        JSON.stringify(drivers)
+      );
+
+
+      /*
+         Update dashboard.
+      */
+
+      updateDriverDisplay();
+
+
+      /*
+         Update edit form.
+      */
+
+      loadEditForm();
+
+
+      /*
+         Update route.
+      */
+
+      loadBusData();
+
+
+      /*
+         Show success message.
+      */
+
+      const saveMessage =
+        document.getElementById("saveMessage");
+
+
+      saveMessage.textContent =
+        "✓ Driver details saved successfully.";
+
+      saveMessage.style.display =
+        "block";
+
+
+      setTimeout(function() {
+
+        saveMessage.style.display =
+          "none";
+
+      }, 3000);
+
+    }
+
+
+    /* =====================================================
+       LOAD BUS INFORMATION
+    ===================================================== */
+
+    function loadBusData() {
+
+      const buses = JSON.parse(
+        localStorage.getItem("routexBuses") || "[]"
+      );
+
+
+      const bus = buses.find(
+        b => b.id === assignedBus
+      );
+
+
+      if (bus) {
+
+        document.getElementById(
+          "routeName"
+        ).textContent =
+          bus.route || defaultRoutes[assignedBus];
+
+      } else {
+
+        document.getElementById(
+          "routeName"
+        ).textContent =
+          defaultRoutes[assignedBus] ||
+          "Assigned Bus Route";
+
+      }
+
+    }
+
+
+    loadBusData();
+
+
+    /* =====================================================
+       GPS VARIABLES
+    ===================================================== */
+
+    let watchId = null;
+
+    let gpsEnabled = false;
+
+    let tripRunning = false;
+
+
+    /* =====================================================
+       SHOW MESSAGE
+    ===================================================== */
+
+    function showMessage(message) {
+
+      const messageBox =
+        document.getElementById("message");
+
+
+      messageBox.textContent =
+        message;
+
+
+      messageBox.style.display =
+        "block";
+
+    }
+
+
+    /* =====================================================
+       ENABLE GPS
+    ===================================================== */
+
+    function enableGPS() {
+
+      if (!navigator.geolocation) {
+
+        alert(
+          "Geolocation is not supported by this browser."
+        );
+
+        return;
+
+      }
+
+
+      navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+          gpsEnabled = true;
+
+
+          document.getElementById(
+            "gpsAlert"
+          ).style.display =
+            "none";
+
+
+          document.getElementById(
+            "gpsActive"
+          ).style.display =
+            "flex";
+
+
+          document.getElementById(
+            "gpsStatus"
+          ).textContent =
+            "ON";
+
+
+          updateLocation(position);
+
+
+          showMessage(
+            "GPS permission granted successfully."
+          );
+
+        },
+
+
+        function(error) {
+
+          gpsEnabled = false;
+
+
+          document.getElementById(
+            "gpsAlert"
+          ).style.display =
+            "flex";
+
+
+          document.getElementById(
+            "gpsActive"
+          ).style.display =
+            "none";
+
+
+          document.getElementById(
+            "gpsStatus"
+          ).textContent =
+            "OFF";
+
+
+          alert(
+            "Please turn ON your phone Location/GPS and allow location permission."
+          );
+
+        },
+
+
+        {
+
+          enableHighAccuracy: true,
+
+          timeout: 10000,
+
+          maximumAge: 0
+
+        }
+
+      );
+
+    }
+
+
+    /* =====================================================
+       UPDATE LOCATION
+    ===================================================== */
+
+    function updateLocation(position) {
+
+      const latitude =
+        position.coords.latitude;
+
+      const longitude =
+        position.coords.longitude;
+
+
+      document.getElementById(
+        "latitude"
+      ).textContent =
+        latitude.toFixed(6);
+
+
+      document.getElementById(
+        "longitude"
+      ).textContent =
+        longitude.toFixed(6);
+
+
+      document.getElementById(
+        "lastUpdated"
+      ).textContent =
+        new Date().toLocaleTimeString();
+
+
+      sendLocationToSystem(
+        latitude,
+        longitude
+      );
+
+    }
+
+
+    /* =====================================================
+       SEND LOCATION
+    ===================================================== */
+
+    async function sendLocationToSystem(latitude, longitude) {
+
+  const locationData = {
+    bus: assignedBus,
+    driverId: driverId,
+    driverName: driverName,
+    latitude: latitude,
+    longitude: longitude,
+    timestamp: new Date().toISOString(),
+    active: tripRunning
+  };
+
+  try {
+
+    const response = await fetch(
+      "http://192.168.1.4:5000/api/location",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(locationData)
+      }
+    );
+
+    const result = await response.json();
+
+    console.log("GPS sent successfully:", result);
+
+  } catch (error) {
+
+    console.error("GPS sending failed:", error);
+
+  }
+}
+
+
+    /* =====================================================
+       START GPS WATCH
+    ===================================================== */
+
+    function startGPSWatch() {
+
+      if (!navigator.geolocation) {
+
+        alert(
+          "Geolocation is not supported."
+        );
+
+        return;
+
+      }
+
+
+      watchId =
+        navigator.geolocation.watchPosition(
+
+          function(position) {
+
+            gpsEnabled = true;
+
+
+            document.getElementById(
+              "gpsStatus"
+            ).textContent =
+              "ON";
+
+
+            document.getElementById(
+              "gpsAlert"
+            ).style.display =
+              "none";
+
+
+            document.getElementById(
+              "gpsActive"
+            ).style.display =
+              "flex";
+
+
+            updateLocation(position);
+
+          },
+
+
+          function(error) {
+
+            gpsEnabled = false;
+
+
+            document.getElementById(
+              "gpsStatus"
+            ).textContent =
+              "OFF";
+
+
+            document.getElementById(
+              "trackingStatus"
+            ).textContent =
+              "OFF";
+
+
+            document.getElementById(
+              "gpsAlert"
+            ).style.display =
+              "flex";
+
+
+            document.getElementById(
+              "gpsActive"
+            ).style.display =
+              "none";
+
+          },
+
+
+          {
+
+            enableHighAccuracy: true,
+
+            timeout: 10000,
+
+            maximumAge: 0
+
+          }
+
+        );
+
+    }
+
+
+    /* =====================================================
+       START TRIP
+    ===================================================== */
+
+    function startTrip() {
+
+      if (!gpsEnabled) {
+
+        showMessage(
+          "Please enable GPS before starting the trip."
+        );
+
+        return;
+
+      }
+
+
+      tripRunning = true;
+
+
+      localStorage.setItem(
+        "routexTripStatus",
+        "active"
+      );
+
+
+      localStorage.setItem(
+        "routexActiveBus",
+        assignedBus
+      );
+
+
+      localStorage.setItem(
+
+        "routexDriverTrip",
+
+        JSON.stringify({
+
+          driverId:
+            driverId,
+
+          driverName:
+            driverName,
+
+          bus:
+            assignedBus,
+
+          status:
+            "active",
+
+          startedAt:
+            new Date().toISOString()
+
+        })
+
+      );
+
+
+      document.getElementById(
+        "tripStatus"
+      ).textContent =
+        "Active";
+
+
+      document.getElementById(
+        "trackingStatus"
+      ).textContent =
+        "ON";
+
+
+      document.getElementById(
+        "startTripBtn"
+      ).disabled =
+        true;
+
+
+      document.getElementById(
+        "stopTripBtn"
+      ).disabled =
+        false;
+
+
+      showMessage(
+        "Trip started. Your live location is being tracked."
+      );
+
+
+      startGPSWatch();
+
+    }
+
+
+    /* =====================================================
+       STOP TRIP
+    ===================================================== */
+
+    function stopTrip() {
+
+      if (!tripRunning) {
+
+        showMessage(
+          "No active trip to stop."
+        );
+
+        return;
+
+      }
+
+
+      tripRunning = false;
+
+
+      if (watchId !== null) {
+
+        navigator.geolocation.clearWatch(
+          watchId
+        );
+
+        watchId = null;
+
+      }
+
+
+      localStorage.setItem(
+        "routexTripStatus",
+        "stopped"
+      );
+
+
+      localStorage.setItem(
+
+        "routexDriverTrip",
+
+        JSON.stringify({
+
+          driverId:
+            driverId,
+
+          driverName:
+            driverName,
+
+          bus:
+            assignedBus,
+
+          status:
+            "stopped",
+
+          stoppedAt:
+            new Date().toISOString()
+
+        })
+
+      );
+
+
+      document.getElementById(
+        "tripStatus"
+      ).textContent =
+        "Stopped";
+
+
+      document.getElementById(
+        "trackingStatus"
+      ).textContent =
+        "OFF";
+
+
+      document.getElementById(
+        "startTripBtn"
+      ).disabled =
+        false;
+
+
+      document.getElementById(
+        "stopTripBtn"
+      ).disabled =
+        true;
+
+
+      showMessage(
+        "Trip stopped successfully."
+      );
+
+
+      const currentLocation =
+        JSON.parse(
+          localStorage.getItem(
+            "routexLiveBusLocation"
+          ) || "null"
+        );
+
+
+      if (currentLocation) {
+
+        currentLocation.active =
+          false;
+
+
+        localStorage.setItem(
+
+          "routexLiveBusLocation",
+
+          JSON.stringify(
+            currentLocation
+          )
+
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       LOGOUT
+    ===================================================== */
+
+    function logoutDriver() {
+
+      if (tripRunning) {
+
+        alert(
+          "Please stop the trip before logging out."
+        );
+
+        return;
+
+      }
+
+
+      localStorage.removeItem(
+        "routexDriverLoggedIn"
+      );
+
+
+      /*
+         IMPORTANT:
+         We DO NOT remove driverId,
+         driverName or assignedBus here.
+         This allows the saved driver
+         details to remain available.
+      */
+
+
+      window.location.href =
+        "driver-login.html";
+
+    }
+
+
+    /* =====================================================
+       RESTORE ACTIVE TRIP
+    ===================================================== */
+
+    function restoreTrip() {
+
+      const savedTrip =
+        JSON.parse(
+          localStorage.getItem(
+            "routexDriverTrip"
+          ) || "null"
+        );
+
+
+      if (
+        savedTrip &&
+        savedTrip.status === "active"
+      ) {
+
+        tripRunning = true;
+
+
+        document.getElementById(
+          "tripStatus"
+        ).textContent =
+          "Active";
+
+
+        document.getElementById(
+          "trackingStatus"
+        ).textContent =
+          "ON";
+
+
+        document.getElementById(
+          "startTripBtn"
+        ).disabled =
+          true;
+
+
+        document.getElementById(
+          "stopTripBtn"
+        ).disabled =
+          false;
+
+
+        startGPSWatch();
+
+      }
+
+    }
+
+
+    restoreTrip();
+
+
+  </script>
+
+</body>
+
+</html>
+

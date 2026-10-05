@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ROUTEX - Driver Login</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f1f5f9;
+      min-height: 100vh;
+      color: #10275c;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar {
+      height: 78px;
+      background: #10275c;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 35px;
+
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      font-size: 28px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+
+    .driver-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      color: #e2e8f0;
+    }
+
+    .driver-label i {
+      color: #60a5fa;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .main-container {
+      min-height: calc(100vh - 78px);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 40px 20px;
+    }
+
+    /* =========================
+       LOGIN CARD
+    ========================= */
+
+    .login-card {
+      width: 100%;
+      max-width: 430px;
+
+      background: white;
+
+      border-radius: 18px;
+
+      padding: 38px 36px;
+
+      box-shadow:
+        0 10px 35px rgba(15, 39, 92, 0.10);
+
+      border: 1px solid #e2e8f0;
+    }
+
+    .login-icon {
+      width: 75px;
+      height: 75px;
+
+      margin: 0 auto 20px;
+
+      border-radius: 50%;
+
+      background: #eaf2ff;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #2875d8;
+
+      font-size: 32px;
+    }
+
+    .login-title {
+      text-align: center;
+
+      font-size: 27px;
+      font-weight: 800;
+
+      color: #10275c;
+
+      margin-bottom: 8px;
+    }
+
+    .login-description {
+      text-align: center;
+
+      color: #64748b;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+
+      margin-bottom: 30px;
+    }
+
+    /* =========================
+       FORM
+    ========================= */
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+      color: #334155;
+
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+
+      left: 15px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      color: #64748b;
+
+      font-size: 15px;
+
+      pointer-events: none;
+    }
+
+    .form-input {
+      width: 100%;
+
+      height: 50px;
+
+      border: 1px solid #cbd5e1;
+
+      border-radius: 10px;
+
+      padding: 0 45px;
+
+      font-family: "Inter", sans-serif;
+
+      font-size: 14px;
+
+      color: #10275c;
+
+      outline: none;
+
+      background: #ffffff;
+
+      transition: 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: #2875d8;
+
+      box-shadow:
+        0 0 0 3px rgba(40, 117, 216, 0.12);
+    }
+
+    .form-input::placeholder {
+      color: #94a3b8;
+    }
+
+    /* =========================
+       PASSWORD TOGGLE
+    ========================= */
+
+    .password-toggle {
+      position: absolute;
+
+      right: 15px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      border: none;
+
+      background: transparent;
+
+      color: #64748b;
+
+      cursor: pointer;
+
+      font-size: 15px;
+    }
+
+    .password-toggle:hover {
+      color: #2875d8;
+    }
+
+    /* =========================
+       REMEMBER ME
+    ========================= */
+
+    .login-options {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      margin-bottom: 24px;
+
+      font-size: 13px;
+    }
+
+    .remember {
+      display: flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      color: #64748b;
+
+      cursor: pointer;
+    }
+
+    .remember input {
+      accent-color: #2875d8;
+
+      width: 15px;
+      height: 15px;
+
+      cursor: pointer;
+    }
+
+    /* =========================
+       LOGIN BUTTON
+    ========================= */
+
+    .login-button {
+      width: 100%;
+
+      height: 52px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      background: #2875d8;
+
+      color: white;
+
+      font-family: "Inter", sans-serif;
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 9px;
+
+      transition: 0.2s;
+    }
+
+    .login-button:hover {
+      background: #1f63ba;
+
+      transform: translateY(-1px);
+
+      box-shadow:
+        0 6px 15px rgba(40, 117, 216, 0.25);
+    }
+
+    .login-button:active {
+      transform: translateY(0);
+    }
+
+    /* =========================
+       ERROR MESSAGE
+    ========================= */
+
+    .error-message {
+      display: none;
+
+      background: #fef2f2;
+
+      color: #dc2626;
+
+      border: 1px solid #fecaca;
+
+      border-radius: 9px;
+
+      padding: 11px 13px;
+
+      margin-bottom: 18px;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+    }
+
+    .error-message.show {
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 9px;
+    }
+
+    .error-message i {
+      margin-top: 2px;
+    }
+
+    /* =========================
+       DRIVER INFO
+    ========================= */
+
+    .driver-info {
+      margin-top: 25px;
+
+      padding: 14px 15px;
+
+      border-radius: 10px;
+
+      background: #f8fafc;
+
+      border: 1px solid #e2e8f0;
+
+      font-size: 12px;
+
+      color: #64748b;
+
+      line-height: 1.6;
+    }
+
+    .driver-info strong {
+      color: #334155;
+    }
+
+    /* =========================
+       BACK TO STUDENT DASHBOARD
+    ========================= */
+
+    .back-link {
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      gap: 7px;
+
+      margin-top: 22px;
+
+      color: #2875d8;
+
+      text-decoration: none;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      transition: 0.2s;
+
+      cursor: pointer;
+    }
+
+    .back-link:hover {
+      color: #1f63ba;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer {
+      text-align: center;
+
+      margin-top: 25px;
+
+      font-size: 11px;
+
+      color: #94a3b8;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      .navbar {
+        height: auto;
+
+        min-height: 72px;
+
+        padding: 14px 18px;
+      }
+
+      .brand-name {
+        font-size: 19px;
+      }
+
+      .brand-subtitle {
+        font-size: 9px;
+      }
+
+      .brand-icon {
+        font-size: 24px;
+      }
+
+      .driver-label {
+        font-size: 12px;
+      }
+
+      .main-container {
+        min-height: calc(100vh - 72px);
+
+        padding: 25px 15px;
+
+        align-items: flex-start;
+      }
+
+      .login-card {
+        padding: 30px 22px;
+
+        margin-top: 15px;
+      }
+
+      .login-title {
+        font-size: 24px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       NAVBAR
+  ========================= -->
+
+  <nav class="navbar">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        🚍
+      </div>
+
+      <div class="brand-text">
+
+        <div class="brand-name">
+          ROUTEX
+        </div>
+
+        <div class="brand-subtitle">
+          AI-Based Smart College Bus Tracking &amp; Safety Management System
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="driver-label">
+
+      <i class="fa-solid fa-id-badge"></i>
+
+      Driver Portal
+
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       MAIN
+  ========================= -->
+
+  <main class="main-container">
+
+
+    <div class="login-card">
+
+
+      <!-- DRIVER ICON -->
+
+      <div class="login-icon">
+
+        <i class="fa-solid fa-bus"></i>
+
+      </div>
+
+
+      <!-- TITLE -->
+
+      <h1 class="login-title">
+        Driver Login
+      </h1>
+
+
+      <p class="login-description">
+        Login to your ROUTEX driver account to start your trip and share your bus location.
+      </p>
+
+
+      <!-- ERROR -->
+
+      <div
+        class="error-message"
+        id="errorMessage"
+      >
+
+        <i class="fa-solid fa-circle-exclamation"></i>
+
+        <span id="errorText">
+          Invalid Driver ID or password.
+        </span>
+
+      </div>
+
+
+      <!-- LOGIN FORM -->
+
+      <form id="driverLoginForm">
+
+
+        <!-- DRIVER ID -->
+
+        <div class="form-group">
+
+          <label
+            class="form-label"
+            for="driverId"
+          >
+            Driver ID
+          </label>
+
+
+          <div class="input-wrapper">
+
+            <i class="fa-solid fa-user input-icon"></i>
+
+            <input
+              type="text"
+              id="driverId"
+              class="form-input"
+              placeholder="Enter your Driver ID"
+              autocomplete="username"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+          <label
+            class="form-label"
+            for="password"
+          >
+            Password
+          </label>
+
+
+          <div class="input-wrapper">
+
+            <i class="fa-solid fa-lock input-icon"></i>
+
+            <input
+              type="password"
+              id="password"
+              class="form-input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            >
+
+
+            <button
+              type="button"
+              class="password-toggle"
+              id="passwordToggle"
+            >
+
+              <i class="fa-solid fa-eye"></i>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- REMEMBER ME -->
+
+        <div class="login-options">
+
+          <label class="remember">
+
+            <input
+              type="checkbox"
+              id="rememberMe"
+            >
+
+            Remember me
+
+          </label>
+
+        </div>
+
+
+        <!-- LOGIN BUTTON -->
+
+        <button
+          type="submit"
+          class="login-button"
+        >
+
+          <i class="fa-solid fa-right-to-bracket"></i>
+
+          Login
+
+        </button>
+
+
+      </form>
+
+
+      <!-- DRIVER INFORMATION -->
+
+      <div class="driver-info">
+
+        <strong>Driver Portal</strong><br>
+
+        After login, your assigned bus will be displayed.
+        You must enable your phone's GPS/location before starting the trip.
+
+      </div>
+
+
+      <!-- =========================
+           STUDENT DASHBOARD BUTTON
+      ========================= -->
+
+      <a
+        href="index.html"
+        class="back-link"
+      >
+
+        <i class="fa-solid fa-house"></i>
+
+        Student Dashboard
+
+      </a>
+
+
+      <!-- FOOTER -->
+
+      <div class="footer">
+
+        © 2026 ROUTEX • Smart College Bus Tracking
+
+      </div>
+
+
+    </div>
+
+
+  </main>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
+  <script>
+
+    const loginForm =
+      document.getElementById("driverLoginForm");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const passwordToggle =
+      document.getElementById("passwordToggle");
+
+    const errorMessage =
+      document.getElementById("errorMessage");
+
+    const errorText =
+      document.getElementById("errorText");
+
+
+    /* =========================
+       SHOW / HIDE PASSWORD
+    ========================= */
+
+    passwordToggle.addEventListener(
+      "click",
+      function () {
+
+        const icon =
+          passwordToggle.querySelector("i");
+
+
+        if (
+          passwordInput.type === "password"
+        ) {
+
+          passwordInput.type = "text";
+
+          icon.classList.remove("fa-eye");
+
+          icon.classList.add("fa-eye-slash");
+
+        } else {
+
+          passwordInput.type = "password";
+
+          icon.classList.remove("fa-eye-slash");
+
+          icon.classList.add("fa-eye");
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       DRIVER LOGIN
+    ========================= */
+
+    loginForm.addEventListener(
+      "submit",
+      function (event) {
+
+        event.preventDefault();
+
+
+        const driverId =
+          document
+            .getElementById("driverId")
+            .value
+            .trim();
+
+
+        const password =
+          document
+            .getElementById("password")
+            .value
+            .trim();
+
+
+        errorMessage.classList.remove("show");
+
+
+        if (!driverId || !password) {
+
+          errorText.textContent =
+            "Please enter your Driver ID and password.";
+
+          errorMessage.classList.add("show");
+
+          return;
+
+        }
+
+
+        /* =========================
+           TEMPORARY LOGIN
+        ========================= */
+
+        if (
+          driverId === "driver01" &&
+          password === "1234"
+        ) {
+
+          localStorage.setItem(
+            "routexDriverLoggedIn",
+            "true"
+          );
+
+
+          localStorage.setItem(
+            "routexDriverId",
+            driverId
+          );
+
+
+          localStorage.setItem(
+            "routexDriverBus",
+            "BUS-06"
+          );
+
+
+          window.location.href =
+            "driver-dashboard.html";
+
+
+        } else {
+
+          errorText.textContent =
+            "Invalid Driver ID or password.";
+
+          errorMessage.classList.add("show");
+
+        }
+
+      }
+    );
+
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ROUTEX - AI Traffic Prediction</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f1f5f9;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            min-height: 75px;
+
+            background: #10275c;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 14px 35px;
+
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            font-size: 29px;
+        }
+
+        .brand-name {
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            color: #cbd5e1;
+            margin-top: 3px;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 17px;
+
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 8px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.25s;
+        }
+
+        .back-btn:hover {
+            background: #2875d8;
+            border-color: #2875d8;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            width: min(1000px, 92%);
+
+            margin: 40px auto 60px;
+        }
+
+        .page-heading {
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+        .main-icon {
+            width: 65px;
+            height: 65px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #e5efff;
+            color: #2875d8;
+
+            border-radius: 16px;
+
+            font-size: 28px;
+        }
+
+        .page-heading h1 {
+            font-size: 30px;
+
+            color: #10275c;
+
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+        /* =========================
+           MAIN CARD
+        ========================= */
+
+        .prediction-card {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 8px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .section-title {
+            color: #10275c;
+
+            font-size: 19px;
+
+            margin-bottom: 18px;
+        }
+
+        /* =========================
+           BUS SELECTION
+        ========================= */
+
+        .bus-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+        .bus-option {
+            border: 2px solid #e2e8f0;
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 13px;
+
+            cursor: pointer;
+
+            text-align: center;
+
+            transition: 0.25s;
+        }
+
+        .bus-option:hover {
+            border-color: #2875d8;
+
+            transform: translateY(-2px);
+        }
+
+        .bus-option.active {
+            border-color: #2875d8;
+
+            background: #f4f8ff;
+        }
+
+        .bus-option i {
+            font-size: 25px;
+
+            color: #2875d8;
+
+            margin-bottom: 10px;
+        }
+
+        .bus-option h3 {
+            color: #10275c;
+
+            font-size: 16px;
+
+            margin-bottom: 5px;
+        }
+
+        .bus-option p {
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+        /* =========================
+           PREDICTION AREA
+        ========================= */
+
+        .prediction-area {
+            display: none;
+
+            margin-top: 30px;
+
+            border-top: 1px solid #e2e8f0;
+
+            padding-top: 30px;
+        }
+
+        .prediction-area.show {
+            display: block;
+        }
+
+        .selected-bus {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .selected-bus h2 {
+            color: #10275c;
+
+            font-size: 20px;
+        }
+
+        .status-badge {
+            padding: 7px 12px;
+
+            background: #fff7ed;
+
+            color: #c2410c;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+        /* =========================
+           FOUR PREDICTION BOXES
+        ========================= */
+
+        .prediction-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 14px;
+        }
+
+        .prediction-box {
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            text-align: center;
+        }
+
+        .prediction-box i {
+            color: #2875d8;
+
+            font-size: 22px;
+
+            margin-bottom: 10px;
+        }
+
+        .prediction-box h3 {
+            font-size: 13px;
+
+            color: #64748b;
+
+            margin-bottom: 8px;
+        }
+
+        .prediction-value {
+            color: #10275c;
+
+            font-size: 18px;
+
+            font-weight: 800;
+        }
+
+        /* =========================
+           ROUTE SUGGESTION
+        ========================= */
+
+        .route-suggestion {
+            margin-top: 20px;
+
+            background: #eef6ff;
+
+            border-left: 4px solid #2875d8;
+
+            border-radius: 8px;
+
+            padding: 17px;
+        }
+
+        .route-suggestion h3 {
+            color: #10275c;
+
+            font-size: 14px;
+
+            margin-bottom: 6px;
+        }
+
+        .route-suggestion p {
+            color: #475569;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================
+           REFRESH BUTTON
+        ========================= */
+
+        .refresh-area {
+            margin-top: 22px;
+
+            display: flex;
+
+            justify-content: center;
+        }
+
+        .refresh-btn {
+            border: none;
+
+            background: #2875d8;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 9px;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .refresh-btn:hover {
+            background: #1d5fb8;
+        }
+
+        .refresh-btn i {
+            margin-right: 7px;
+        }
+
+        /* =========================
+           DISCLAIMER
+        ========================= */
+
+        .info-note {
+            margin-top: 18px;
+
+            text-align: center;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .prediction-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 14px 18px;
+            }
+
+            .brand-subtitle {
+                display: none;
+            }
+
+            .brand-name {
+                font-size: 19px;
+            }
+
+            .back-btn {
+                font-size: 12px;
+
+                padding: 9px 11px;
+            }
+
+            .container {
+                margin-top: 30px;
+            }
+
+            .page-heading h1 {
+                font-size: 25px;
+            }
+
+            .prediction-card {
+                padding: 20px;
+            }
+
+            .bus-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prediction-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🚍
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    ROUTEX
+                </div>
+
+                <div class="brand-subtitle">
+                    AI-Based Smart College Bus Tracking & Safety Management System
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="smart-features.html"
+            class="back-btn"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Smart Features
+
+        </a>
+
+    </nav>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+
+        <div class="page-heading">
+
+            <div class="main-icon">
+
+                <i class="fa-solid fa-traffic-light"></i>
+
+            </div>
+
+            <h1>
+                AI Traffic Prediction
+            </h1>
+
+            <p>
+                Predict traffic conditions, estimated arrival time and possible route changes.
+            </p>
+
+        </div>
+
+
+
+        <section class="prediction-card">
+
+
+            <h2 class="section-title">
+                Select Your Bus
+            </h2>
+
+
+            <!-- =========================
+                 BUS OPTIONS
+            ========================= -->
+
+            <div class="bus-grid">
+
+
+                <div
+                    class="bus-option"
+                    data-bus="BUS-01"
+                >
+
+                    <i class="fa-solid fa-bus"></i>
+
+                    <h3>
+                        BUS-01
+                    </h3>
+
+                    <p>
+                        Perambakkam Route
+                    </p>
+
+                </div>
+
+
+
+                <div
+                    class="bus-option"
+                    data-bus="BUS-06"
+                >
+
+                    <i class="fa-solid fa-bus"></i>
+
+                    <h3>
+                        BUS-06
+                    </h3>
+
+                    <p>
+                        Nehru Stadium Route
+                    </p>
+
+                </div>
+
+
+
+                <div
+                    class="bus-option"
+                    data-bus="BUS-07"
+                >
+
+                    <i class="fa-solid fa-bus"></i>
+
+                    <h3>
+                        BUS-07
+                    </h3>
+
+                    <p>
+                        Madhavaram Route
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 PREDICTION
+            ========================= -->
+
+            <div
+                class="prediction-area"
+                id="predictionArea"
+            >
+
+
+                <div class="selected-bus">
+
+                    <h2 id="selectedBus">
+                        BUS-01
+                    </h2>
+
+                    <span
+                        class="status-badge"
+                        id="trafficBadge"
+                    >
+                        Moderate Traffic
+                    </span>
+
+                </div>
+
+
+
+                <!-- FOUR IMPORTANT DATA -->
+
+                <div class="prediction-grid">
+
+
+                    <!-- Traffic -->
+
+                    <div class="prediction-box">
+
+                        <i class="fa-solid fa-road"></i>
+
+                        <h3>
+                            Traffic
+                        </h3>
+
+                        <div
+                            class="prediction-value"
+                            id="trafficValue"
+                        >
+                            Moderate
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ETA -->
+
+                    <div class="prediction-box">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        <h3>
+                            Predicted ETA
+                        </h3>
+
+                        <div
+                            class="prediction-value"
+                            id="etaValue"
+                        >
+                            25 min
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Delay -->
+
+                    <div class="prediction-box">
+
+                        <i class="fa-solid fa-hourglass-half"></i>
+
+                        <h3>
+                            Expected Delay
+                        </h3>
+
+                        <div
+                            class="prediction-value"
+                            id="delayValue"
+                        >
+                            +5 min
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Route -->
+
+                    <div class="prediction-box">
+
+                        <i class="fa-solid fa-route"></i>
+
+                        <h3>
+                            Route Status
+                        </h3>
+
+                        <div
+                            class="prediction-value"
+                            id="routeValue"
+                        >
+                            Normal
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ROUTE SUGGESTION -->
+
+                <div class="route-suggestion">
+
+                    <h3>
+
+                        <i class="fa-solid fa-lightbulb"></i>
+
+                        AI Route Suggestion
+
+                    </h3>
+
+                    <p id="suggestionText">
+
+                        Traffic is moderate. The current route can be followed.
+                        Allow a few extra minutes for the journey.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- REFRESH -->
+
+                <div class="refresh-area">
+
+                    <button
+                        type="button"
+                        class="refresh-btn"
+                        id="refreshBtn"
+                    >
+
+                        <i class="fa-solid fa-rotate"></i>
+
+                        Refresh Prediction
+
+                    </button>
+
+                </div>
+
+
+                <div class="info-note">
+
+                    Traffic and ETA shown here are demonstration predictions.
+                    Real-time prediction requires live traffic and GPS data.
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+
+        const busOptions =
+            document.querySelectorAll(".bus-option");
+
+        const predictionArea =
+            document.getElementById("predictionArea");
+
+        const selectedBus =
+            document.getElementById("selectedBus");
+
+        const trafficBadge =
+            document.getElementById("trafficBadge");
+
+        const trafficValue =
+            document.getElementById("trafficValue");
+
+        const etaValue =
+            document.getElementById("etaValue");
+
+        const delayValue =
+            document.getElementById("delayValue");
+
+        const routeValue =
+            document.getElementById("routeValue");
+
+        const suggestionText =
+            document.getElementById("suggestionText");
+
+        const refreshBtn =
+            document.getElementById("refreshBtn");
+
+
+        let currentBus = null;
+
+
+
+        /*
+        --------------------------------
+        DEMONSTRATION DATA
+        --------------------------------
+        */
+
+        const trafficData = {
+
+            "BUS-01": {
+
+                traffic: [
+                    "Low",
+                    "Moderate",
+                    "High"
+                ],
+
+                eta: [
+                    "20 min",
+                    "25 min",
+                    "32 min"
+                ],
+
+                delay: [
+                    "+2 min",
+                    "+5 min",
+                    "+12 min"
+                ],
+
+                route: [
+                    "Normal",
+                    "Normal",
+                    "Slow"
+                ],
+
+                suggestions: [
+
+                    "Traffic is light. The current route should have minimal delay.",
+
+                    "Traffic is moderate. Allow a few extra minutes for the journey.",
+
+                    "Heavy traffic detected on the current route. Consider allowing additional travel time."
+
+                ]
+
+            },
+
+
+            "BUS-06": {
+
+                traffic: [
+                    "Moderate",
+                    "High",
+                    "Low"
+                ],
+
+                eta: [
+                    "25 min",
+                    "35 min",
+                    "18 min"
+                ],
+
+                delay: [
+                    "+5 min",
+                    "+15 min",
+                    "+2 min"
+                ],
+
+                route: [
+                    "Normal",
+                    "Slow",
+                    "Clear"
+                ],
+
+                suggestions: [
+
+                    "Traffic is moderate. The current route can be followed with a small time buffer.",
+
+                    "Heavy traffic may cause delays. Monitor the route before travelling.",
+
+                    "Traffic is currently light. The bus should have a smoother journey."
+
+                ]
+
+            },
+
+
+            "BUS-07": {
+
+                traffic: [
+                    "High",
+                    "Moderate",
+                    "Low"
+                ],
+
+                eta: [
+                    "35 min",
+                    "27 min",
+                    "20 min"
+                ],
+
+                delay: [
+                    "+12 min",
+                    "+6 min",
+                    "+2 min"
+                ],
+
+                route: [
+                    "Slow",
+                    "Normal",
+                    "Clear"
+                ],
+
+                suggestions: [
+
+                    "Heavy traffic may affect the bus. Allow additional travel time.",
+
+                    "Traffic is moderate. A small delay may occur on the route.",
+
+                    "Traffic is light. The current route is expected to move normally."
+
+                ]
+
+            }
+
+        };
+
+
+
+        /*
+        --------------------------------
+        SELECT BUS
+        --------------------------------
+        */
+
+        busOptions.forEach(function(bus) {
+
+            bus.addEventListener("click", function() {
+
+                busOptions.forEach(function(item) {
+
+                    item.classList.remove("active");
+
+                });
+
+
+                bus.classList.add("active");
+
+
+                currentBus =
+                    bus.dataset.bus;
+
+
+                selectedBus.textContent =
+                    currentBus;
+
+
+                predictionArea.classList.add("show");
+
+
+                generatePrediction();
+
+
+                predictionArea.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            });
+
+        });
+
+
+
+        /*
+        --------------------------------
+        GENERATE PREDICTION
+        --------------------------------
+        */
+
+        function generatePrediction() {
+
+            if (!currentBus) {
+                return;
+            }
+
+
+            const data =
+                trafficData[currentBus];
+
+
+            if (!data) {
+                return;
+            }
+
+
+            const randomIndex =
+                Math.floor(
+                    Math.random() *
+                    data.traffic.length
+                );
+
+
+            const traffic =
+                data.traffic[randomIndex];
+
+
+            const eta =
+                data.eta[randomIndex];
+
+
+            const delay =
+                data.delay[randomIndex];
+
+
+            const route =
+                data.route[randomIndex];
+
+
+            const suggestion =
+                data.suggestions[randomIndex];
+
+
+            trafficValue.textContent =
+                traffic;
+
+
+            etaValue.textContent =
+                eta;
+
+
+            delayValue.textContent =
+                delay;
+
+
+            routeValue.textContent =
+                route;
+
+
+            suggestionText.textContent =
+                suggestion;
+
+
+            trafficBadge.textContent =
+                traffic + " Traffic";
+
+        }
+
+
+
+        /*
+        --------------------------------
+        REFRESH
+        --------------------------------
+        */
+
+        refreshBtn.addEventListener("click", function() {
+
+            generatePrediction();
+
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>

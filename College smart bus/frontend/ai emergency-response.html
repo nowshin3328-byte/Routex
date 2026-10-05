@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ROUTEX - Smart Emergency Response</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f1f5f9;
+      color: #172033;
+    }
+
+    /* NAVBAR */
+
+    .navbar {
+      height: 75px;
+      background: #10275c;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 35px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand h1 {
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .brand p {
+      font-size: 11px;
+      color: #cbd5e1;
+      margin-top: 3px;
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: white;
+
+      padding: 10px 17px;
+
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      transition: 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #2875d8;
+      border-color: #2875d8;
+    }
+
+    /* MAIN */
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .page-header {
+      margin-bottom: 30px;
+    }
+
+    .page-header h2 {
+      font-size: 30px;
+      color: #10275c;
+      margin-bottom: 8px;
+    }
+
+    .page-header p {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    /* FEATURE GRID */
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+
+      border-radius: 14px;
+
+      padding: 25px;
+
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+
+      border: 1px solid #e2e8f0;
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background: #eaf2ff;
+      color: #2875d8;
+
+      font-size: 22px;
+
+      margin-bottom: 17px;
+    }
+
+    .card h3 {
+      color: #10275c;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    /* BUTTON */
+
+    .action-btn {
+      border: none;
+
+      background: #2875d8;
+      color: white;
+
+      padding: 11px 18px;
+
+      border-radius: 8px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .action-btn:hover {
+      background: #1d5fb5;
+    }
+
+    .danger-btn {
+      background: #dc2626;
+    }
+
+    .danger-btn:hover {
+      background: #b91c1c;
+    }
+
+    /* RESULT */
+
+    .result-box {
+      display: none;
+
+      margin-top: 25px;
+
+      background: white;
+
+      border-radius: 14px;
+
+      padding: 25px;
+
+      border: 1px solid #dbe3ee;
+
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.07);
+    }
+
+    .result-box h3 {
+      color: #10275c;
+      margin-bottom: 15px;
+    }
+
+    .result-item {
+      padding: 12px 0;
+
+      border-bottom: 1px solid #e2e8f0;
+
+      font-size: 14px;
+    }
+
+    .result-item:last-child {
+      border-bottom: none;
+    }
+
+    .result-item strong {
+      color: #10275c;
+    }
+
+    /* EMERGENCY STATUS */
+
+    .status {
+      margin-top: 15px;
+
+      padding: 13px;
+
+      border-radius: 8px;
+
+      background: #ecfdf5;
+
+      color: #047857;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+      display: none;
+    }
+
+    /* BUS SELECT */
+
+    select {
+      width: 100%;
+
+      padding: 12px;
+
+      border: 1px solid #cbd5e1;
+
+      border-radius: 8px;
+
+      margin-bottom: 15px;
+
+      font-family: inherit;
+
+      font-size: 14px;
+
+      outline: none;
+    }
+
+    select:focus {
+      border-color: #2875d8;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 750px) {
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .navbar {
+        padding: 0 18px;
+      }
+
+      .brand p {
+        display: none;
+      }
+
+      .page-header h2 {
+        font-size: 25px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <div class="brand">
+
+      <h1>🚍 ROUTEX</h1>
+
+      <p>
+        AI-Based Smart College Bus Tracking & Safety Management System
+      </p>
+
+    </div>
+
+
+    <a
+      href="smart-features.html"
+      class="back-btn"
+    >
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      Back to Smart Features
+
+    </a>
+
+  </nav>
+
+
+
+  <!-- MAIN -->
+
+  <main class="container">
+
+
+    <div class="page-header">
+
+      <h2>
+        🚨 Smart Emergency Response
+      </h2>
+
+      <p>
+        Quickly respond to emergencies and access important bus information.
+      </p>
+
+    </div>
+
+
+
+    <!-- FEATURE CARDS -->
+
+    <div class="feature-grid">
+
+
+      <!-- 1. EMERGENCY ALERT -->
+
+      <div class="card">
+
+        <div class="card-icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+
+        <h3>
+          Emergency Alert
+        </h3>
+
+        <p>
+          Send an emergency alert when there is a serious problem inside the bus.
+        </p>
+
+        <button
+          class="action-btn danger-btn"
+          onclick="sendEmergencyAlert()"
+        >
+
+          <i class="fa-solid fa-bell"></i>
+
+          Send Emergency Alert
+
+        </button>
+
+        <div
+          id="alertStatus"
+          class="status"
+        ></div>
+
+      </div>
+
+
+
+      <!-- 2. LIVE LOCATION -->
+
+      <div class="card">
+
+        <div class="card-icon">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+
+        <h3>
+          Share Live Bus Location
+        </h3>
+
+        <p>
+          Share the current bus location with the college administration during an emergency.
+        </p>
+
+        <button
+          class="action-btn"
+          onclick="shareLocation()"
+        >
+
+          <i class="fa-solid fa-location-crosshairs"></i>
+
+          Share Location
+
+        </button>
+
+        <div
+          id="locationStatus"
+          class="status"
+        ></div>
+
+      </div>
+
+
+
+      <!-- 3. BUS DETAILS -->
+
+      <div class="card">
+
+        <div class="card-icon">
+          <i class="fa-solid fa-bus"></i>
+        </div>
+
+        <h3>
+          Bus & Driver Details
+        </h3>
+
+        <p>
+          Select the bus to view the available bus and driver information.
+        </p>
+
+
+        <select id="busSelect">
+
+          <option value="">
+            Select Bus
+          </option>
+
+          <option value="BUS-01">
+            BUS-01
+          </option>
+
+          <option value="BUS-06">
+            BUS-06
+          </option>
+
+          <option value="BUS-07">
+            BUS-07
+          </option>
+
+        </select>
+
+
+        <button
+          class="action-btn"
+          onclick="showBusDetails()"
+        >
+
+          <i class="fa-solid fa-circle-info"></i>
+
+          View Details
+
+        </button>
+
+      </div>
+
+
+
+      <!-- 4. EMERGENCY SUPPORT -->
+
+      <div class="card">
+
+        <div class="card-icon">
+          <i class="fa-solid fa-phone-volume"></i>
+        </div>
+
+        <h3>
+          Emergency Support
+        </h3>
+
+        <p>
+          Contact the college emergency support team for assistance during a serious situation.
+        </p>
+
+        <button
+          class="action-btn"
+          onclick="contactSupport()"
+        >
+
+          <i class="fa-solid fa-headset"></i>
+
+          Contact Support
+
+        </button>
+
+        <div
+          id="supportStatus"
+          class="status"
+        ></div>
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- RESULT BOX -->
+
+    <div
+      id="resultBox"
+      class="result-box"
+    >
+
+      <h3>
+        🚌 Emergency Bus Information
+      </h3>
+
+      <div
+        id="resultContent"
+      ></div>
+
+    </div>
+
+
+  </main>
+
+
+
+  <script>
+
+
+    /* =========================
+       EMERGENCY ALERT
+    ========================= */
+
+    function sendEmergencyAlert() {
+
+      const confirmed = confirm(
+        "Are you sure you want to send an emergency alert?"
+      );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      const alertData = {
+
+        type: "Emergency Alert",
+
+        time: new Date().toLocaleString(),
+
+        status: "Emergency alert sent"
+
+      };
+
+
+      localStorage.setItem(
+        "routexEmergencyAlert",
+        JSON.stringify(alertData)
+      );
+
+
+      const status =
+        document.getElementById("alertStatus");
+
+
+      status.style.display = "block";
+
+      status.innerHTML =
+        "🚨 Emergency alert sent successfully to the college administration.";
+
+    }
+
+
+
+    /* =========================
+       SHARE LOCATION
+    ========================= */
+
+    function shareLocation() {
+
+      const status =
+        document.getElementById("locationStatus");
+
+
+      if (!navigator.geolocation) {
+
+        status.style.display = "block";
+
+        status.innerHTML =
+          "Location sharing is not supported by this browser.";
+
+        return;
+
+      }
+
+
+      status.style.display = "block";
+
+      status.innerHTML =
+        "📍 Getting your current location...";
+
+
+      navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+          const latitude =
+            position.coords.latitude;
+
+          const longitude =
+            position.coords.longitude;
+
+
+          const locationData = {
+
+            latitude: latitude,
+
+            longitude: longitude,
+
+            time: new Date().toLocaleString()
+
+          };
+
+
+          localStorage.setItem(
+
+            "routexEmergencyLocation",
+
+            JSON.stringify(locationData)
+
+          );
+
+
+          status.innerHTML =
+            "📍 Current location captured and ready to share with administration.";
+
+        },
+
+
+        function() {
+
+          status.innerHTML =
+            "⚠️ Location permission was not provided.";
+
+        }
+
+      );
+
+    }
+
+
+
+    /* =========================
+       BUS DETAILS
+    ========================= */
+
+    function showBusDetails() {
+
+      const bus =
+        document.getElementById("busSelect").value;
+
+
+      if (!bus) {
+
+        alert("Please select a bus first.");
+
+        return;
+
+      }
+
+
+      let details = "";
+
+
+      if (bus === "BUS-01") {
+
+        details = `
+
+          <div class="result-item">
+            <strong>Bus Number:</strong> BUS-01
+          </div>
+
+          <div class="result-item">
+            <strong>Route:</strong> Perambakkam → SVCET College
+          </div>
+
+          <div class="result-item">
+            <strong>Main Stops:</strong>
+            Perambakkam, Kadambathur, Tiruvallur, Thirupachur, SVCET College
+          </div>
+
+          <div class="result-item">
+            <strong>Driver:</strong> Driver information available to administration
+          </div>
+
+        `;
+
+      }
+
+
+      else if (bus === "BUS-06") {
+
+        details = `
+
+          <div class="result-item">
+            <strong>Bus Number:</strong> BUS-06
+          </div>
+
+          <div class="result-item">
+            <strong>Route:</strong> Nehru Stadium → SVCET College
+          </div>
+
+          <div class="result-item">
+            <strong>Main Stops:</strong>
+            Nehru Stadium, KMC Hospital, Anna Arch, Mogappair, Maduravoyal
+          </div>
+
+          <div class="result-item">
+            <strong>Driver:</strong> Driver information available to administration
+          </div>
+
+        `;
+
+      }
+
+
+      else if (bus === "BUS-07") {
+
+        details = `
+
+          <div class="result-item">
+            <strong>Bus Number:</strong> BUS-07
+          </div>
+
+          <div class="result-item">
+            <strong>Route:</strong> Madhavaram → SVCET College
+          </div>
+
+          <div class="result-item">
+            <strong>Main Stops:</strong>
+            Madhavaram, Redhills, Padi, Padi Jeyachandran, Anna Nagar
+          </div>
+
+          <div class="result-item">
+            <strong>Driver:</strong> Driver information available to administration
+          </div>
+
+        `;
+
+      }
+
+
+      document.getElementById("resultContent").innerHTML =
+        details;
+
+
+      document.getElementById("resultBox").style.display =
+        "block";
+
+    }
+
+
+
+    /* =========================
+       EMERGENCY SUPPORT
+    ========================= */
+
+    function contactSupport() {
+
+      const status =
+        document.getElementById("supportStatus");
+
+
+      status.style.display = "block";
+
+
+      status.innerHTML =
+        "📞 Emergency support request prepared. Please contact your college's official emergency support channel.";
+
+    }
+
+
+  </script>
+
+
+</body>
+
+</html>

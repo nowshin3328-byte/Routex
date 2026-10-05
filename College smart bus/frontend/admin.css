@@ -1,0 +1,62 @@
+/* admin.css - ONLY the new parts the student dashboard doesn't have.
+   Everything else (navbar, sidebar, cards, stat cards) comes from style.css */
+
+/* Clock inside the welcome banner */
+.admin-clock { margin-left: auto; display: flex; gap: 18px; font-weight: 600; white-space: nowrap; }
+
+/* Map height (in case style.css doesn't set it for #map) */
+#map { height: 320px; border-radius: 12px; }
+
+/* Cards stacked under each other in a column */
+.left-column .card, .right-column .card { margin-bottom: 18px; }
+
+/* Bottom row with two cards */
+.admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+
+/* Tables */
+.table-scroll { overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.admin-table th { text-align: left; padding: 10px 8px; background: #eef3fb; color: #1e3a8a; }
+.admin-table td { padding: 10px 8px; border-bottom: 1px solid #eef2f7; white-space: nowrap; }
+
+/* Small status tags */
+.tag { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+.tag.green { background: #d1fae5; color: #047857; }
+
+/* Occupancy mini bar */
+.mini-bar { width: 70px; height: 6px; background: #e2e8f0; border-radius: 4px; margin-top: 4px; overflow: hidden; }
+.mini-bar div { height: 100%; background: #10b981; }
+
+/* View / Track buttons */
+.btn-sm { background: #eef3fb; border: none; padding: 5px 12px; border-radius: 6px; margin-right: 4px; cursor: pointer; font-family: inherit; }
+.btn-sm:hover { background: #dbeafe; }
+
+/* Alerts */
+.alert-item { display: flex; gap: 10px; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; margin-bottom: 10px; font-size: 13px; }
+.alert-icon { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: #fff; flex-shrink: 0; }
+.alert-icon.red { background: #ef4444; }
+.alert-icon.yellow { background: #f59e0b; }
+.alert-icon.blue { background: #3b82f6; }
+.alert-body { flex: 1; }
+.alert-top { display: flex; justify-content: space-between; }
+.alert-body p { color: #64748b; margin-top: 2px; }
+
+/* AI monitoring */
+.ai-line { margin-bottom: 10px; font-size: 14px; }
+.ai-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.ai-cam { flex: 1; min-width: 140px; height: 100px; background: #1e293b; color: #cbd5e1; border-radius: 10px; display: grid; place-items: center; font-size: 13px; }
+.donut { width: 100px; height: 100px; border-radius: 50%; background: conic-gradient(#14b8a6 0 80%, #e2e8f0 80% 100%); display: grid; place-items: center; }
+.donut span { width: 74px; height: 74px; background: #fff; border-radius: 50%; display: grid; place-content: center; text-align: center; font-weight: 700; font-size: 18px; }
+.donut small { font-size: 9px; font-weight: 400; color: #64748b; }
+.ai-nums { display: flex; gap: 24px; margin-top: 12px; font-size: 13px; color: #64748b; }
+.ai-nums strong { color: #0f172a; font-size: 18px; margin-left: 4px; }
+
+/* Trip filters */
+.trip-filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.trip-filters input, .trip-filters select { padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; }
+.trip-filters button { background: #2563eb; color: #fff; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-family: inherit; }
+
+/* Bus marker on the map */
+.bus-marker { background: #2563eb; color: #fff; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.3); }
+
+@media (max-width: 1000px) { .admin-grid { grid-template-columns: 1fr; } }

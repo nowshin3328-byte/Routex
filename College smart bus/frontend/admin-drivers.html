@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROUTEX - Manage Drivers</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f1f5f9;
+      color: #172554;
+    }
+
+    /* TOP BAR */
+    .navbar {
+      height: 70px;
+      background: #10275c;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+    }
+    .navbar h1 { font-size: 20px; font-weight: 800; }
+    .back-btn {
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px 13px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 8px;
+    }
+    .back-btn:hover { background: #2875d8; }
+
+    /* PAGE */
+    .container { max-width: 1000px; margin: auto; padding: 30px; }
+    .container h2 { margin-bottom: 18px; color: #12356d; }
+
+    /* WHITE CARDS */
+    .card {
+      background: white;
+      border: 1px solid #dbe3ec;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    /* ADD FORM */
+    .form-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .form-row input, .form-row select {
+      flex: 1;
+      min-width: 150px;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-family: inherit;
+    }
+    .add-btn {
+      background: #2875d8;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .add-btn:hover { background: #1d5fb5; }
+
+    /* TABLE */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 12px; border-bottom: 1px solid #e2e8f0; }
+    th { background: #eff6ff; color: #19396d; }
+    .delete-btn {
+      background: #fee2e2;
+      color: #dc2626;
+      border: none;
+      padding: 7px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .delete-btn:hover { background: #fecaca; }
+
+    @media (max-width: 600px) {
+      .container { padding: 14px; }
+      .card { overflow-x: auto; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <header class="navbar">
+    <h1>🚍 ROUTEX</h1>
+    <a href="admin.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Back to Admin Dashboard
+    </a>
+  </header>
+
+  <main class="container">
+    <h2><i class="fa-solid fa-id-card"></i> Manage Drivers</h2>
+
+    <!-- ADD DRIVER FORM -->
+    <div class="card">
+      <div class="form-row">
+        <input type="text" id="driverName" placeholder="Driver name">
+        <input type="text" id="driverPhone" placeholder="Phone number">
+        <select id="driverBus">
+          <option value="Bus 01">Bus 01</option>
+          <option value="Bus 06">Bus 06</option>
+          <option value="Bus 07">Bus 07</option>
+        </select>
+        <button class="add-btn" onclick="addDriver()">
+          <i class="fa-solid fa-plus"></i> Add Driver
+        </button>
+      </div>
+    </div>
+
+    <!-- DRIVERS TABLE -->
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Bus</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="driverTable"></tbody>
+      </table>
+    </div>
+  </main>
+
+<script>
+  // Dummy driver data (a list of drivers)
+  let drivers = [
+    { name: "Ravi Kumar",  phone: "90000 00001", bus: "Bus 01" },
+    { name: "Murugan S",   phone: "90000 00002", bus: "Bus 06" },
+    { name: "Selvam P",    phone: "90000 00003", bus: "Bus 07" }
+  ];
+
+  // Show all drivers in the table
+  function showDrivers() {
+    const table = document.getElementById("driverTable");
+    table.innerHTML = "";
+
+    drivers.forEach((driver, index) => {
+      table.innerHTML += `
+        <tr>
+          <td>${driver.name}</td>
+          <td>${driver.phone}</td>
+          <td>${driver.bus}</td>
+          <td>
+            <button class="delete-btn" onclick="deleteDriver(${index})">
+              <i class="fa-solid fa-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      `;
+    });
+  }
+
+  // Add a new driver from the form
+  function addDriver() {
+    const name  = document.getElementById("driverName").value.trim();
+    const phone = document.getElementById("driverPhone").value.trim();
+    const bus   = document.getElementById("driverBus").value;
+
+    if (name === "" || phone === "") {
+      alert("Please enter driver name and phone number");
+      return;
+    }
+
+    drivers.push({ name: name, phone: phone, bus: bus });
+
+    document.getElementById("driverName").value = "";
+    document.getElementById("driverPhone").value = "";
+
+    showDrivers();
+  }
+
+  // Delete a driver using its position in the list
+  function deleteDriver(index) {
+    if (confirm("Delete this driver?")) {
+      drivers.splice(index, 1);
+      showDrivers();
+    }
+  }
+
+  // Show the table when the page opens
+  showDrivers();
+</script>
+
+</body>
+</html>

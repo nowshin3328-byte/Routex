@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROUTEX - Settings</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f1f5f9;
+      color: #172554;
+    }
+
+    /* TOP BAR */
+    .navbar {
+      height: 70px;
+      background: #10275c;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+    }
+    .navbar h1 { font-size: 20px; font-weight: 800; }
+    .back-btn {
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 9px 13px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 8px;
+    }
+    .back-btn:hover { background: #2875d8; }
+
+    /* PAGE */
+    .container { max-width: 800px; margin: auto; padding: 30px; }
+    .container h2 { margin-bottom: 18px; color: #12356d; }
+
+    .card {
+      background: white;
+      border: 1px solid #dbe3ec;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+    .card h3 { color: #19396d; font-size: 16px; margin-bottom: 14px; }
+
+    /* FORM FIELDS */
+    label { display: block; font-size: 12px; font-weight: 600; margin: 12px 0 5px; }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-family: inherit;
+    }
+
+    /* TOGGLE ROWS */
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 13px;
+    }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-row input { width: 18px; height: 18px; cursor: pointer; }
+
+    /* SAVE BUTTON */
+    .save-btn {
+      background: #2875d8;
+      color: white;
+      border: none;
+      padding: 11px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .save-btn:hover { background: #1d5fb5; }
+
+    /* SUCCESS MESSAGE */
+    .message {
+      display: none;
+      background: #dcfce7;
+      color: #16a34a;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 14px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <header class="navbar">
+    <h1>🚍 ROUTEX</h1>
+    <a href="admin.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Back to Admin Dashboard
+    </a>
+  </header>
+
+  <main class="container">
+    <h2><i class="fa-solid fa-gear"></i> Settings</h2>
+
+    <!-- Shows after saving -->
+    <div class="message" id="message">
+      <i class="fa-solid fa-circle-check"></i> Settings saved successfully!
+    </div>
+
+    <!-- PROFILE -->
+    <div class="card">
+      <h3>Profile</h3>
+
+      <label for="adminName">Name</label>
+      <input type="text" id="adminName" value="Admin">
+
+      <label for="adminEmail">Email</label>
+      <input type="email" id="adminEmail" value="admin@routex.com">
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="card">
+      <h3>Notifications</h3>
+
+      <div class="toggle-row">
+        <span>Bus delay alerts</span>
+        <input type="checkbox" id="delayAlerts" checked>
+      </div>
+
+      <div class="toggle-row">
+        <span>Safety / emergency alerts</span>
+        <input type="checkbox" id="safetyAlerts" checked>
+      </div>
+
+      <div class="toggle-row">
+        <span>Email notifications</span>
+        <input type="checkbox" id="emailAlerts">
+      </div>
+    </div>
+
+    <!-- CHANGE PASSWORD -->
+    <div class="card">
+      <h3>Change Password</h3>
+
+      <label for="newPassword">New Password</label>
+      <input type="password" id="newPassword" placeholder="Enter new password">
+
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" placeholder="Enter password again">
+    </div>
+
+    <button class="save-btn" onclick="saveSettings()">
+      <i class="fa-solid fa-floppy-disk"></i> Save Settings
+    </button>
+  </main>
+
+<script>
+  // Save the settings in the browser's memory (localStorage)
+  function saveSettings() {
+    const newPass = document.getElementById("newPassword").value;
+    const confirmPass = document.getElementById("confirmPassword").value;
+
+    // If the admin typed a password, both boxes must match
+    if (newPass !== "" && newPass !== confirmPass) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    const settings = {
+      name:         document.getElementById("adminName").value,
+      email:        document.getElementById("adminEmail").value,
+      delayAlerts:  document.getElementById("delayAlerts").checked,
+      safetyAlerts: document.getElementById("safetyAlerts").checked,
+      emailAlerts:  document.getElementById("emailAlerts").checked
+    };
+
+    localStorage.setItem("adminSettings", JSON.stringify(settings));
+
+    // Clear password boxes and show the green message
+    document.getElementById("newPassword").value = "";
+    document.getElementById("confirmPassword").value = "";
+    document.getElementById("message").style.display = "block";
+  }
+
+  // When the page opens, load the saved settings (if any)
+  function loadSettings() {
+    const saved = localStorage.getItem("adminSettings");
+    if (saved === null) return;   // nothing saved yet
+
+    const settings = JSON.parse(saved);
+    document.getElementById("adminName").value = settings.name;
+    document.getElementById("adminEmail").value = settings.email;
+    document.getElementById("delayAlerts").checked = settings.delayAlerts;
+    document.getElementById("safetyAlerts").checked = settings.safetyAlerts;
+    document.getElementById("emailAlerts").checked = settings.emailAlerts;
+  }
+
+  loadSettings();
+</script>
+
+</body>
+</html>

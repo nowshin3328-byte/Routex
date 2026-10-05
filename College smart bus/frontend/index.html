@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ROUTEX - Smart Bus Tracking</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+
+  <!-- ROUTEX CSS -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       TOP NAVBAR
+       ===================================================== -->
+
+  <header class="navbar">
+
+    <div class="navbar-brand">
+
+      <div class="brand-icon">
+        <i class="fa-solid fa-bus"></i>
+      </div>
+
+      <div class="brand-text">
+        <h1>🚍 ROUTEX</h1>
+        <p>
+          AI-Based Smart College Bus Tracking &amp;
+          Safety Management System
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="navbar-actions">
+
+      <span class="status-pill">
+        <span class="pulse-dot"></span>
+        System Active
+      </span>
+
+      <!-- BELL: scrolls to the Recent Notifications card -->
+      <button class="icon-btn" aria-label="Notifications"
+        onclick="document.getElementById('notificationsCard').scrollIntoView({ behavior: 'smooth', block: 'start' })">
+        <i class="fa-solid fa-bell"></i>
+        <span class="badge">3</span>
+      </button>
+
+      <div class="user-chip">
+
+        <div class="avatar">
+          <i class="fa-solid fa-user"></i>
+        </div>
+
+        <div class="user-text">
+          <strong>Hello, Nowshin</strong>
+          <span>Student</span>
+        </div>
+
+        <i class="fa-solid fa-chevron-down"></i>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       APP SHELL
+       ===================================================== -->
+
+  <div class="app-shell">
+
+
+    <!-- ===================================================
+         SIDEBAR
+         =================================================== -->
+
+    <aside class="sidebar">
+
+      <nav>
+
+        <!-- DASHBOARD -->
+        <a href="index.html" class="nav-item active">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- SMART FEATURES -->
+        <a href="smart-features.html" class="nav-item">
+          <span class="smart-left">
+            <i class="fa-solid fa-rocket"></i>
+            <span>Smart Features</span>
+          </span>
+        </a>
+
+        <!-- MY PROFILE -->
+        <a href="profile.html" class="nav-item">
+          <i class="fa-solid fa-id-card"></i>
+          <span>My Profile</span>
+        </a>
+
+        <!-- ADMIN -->
+        <a href="admin-login.html" class="nav-item">
+          <span>
+            <i class="fa-solid fa-user-shield"></i>
+            <span>Admin</span>
+          </span>
+        </a>
+
+        <!-- DRIVER -->
+<a href="driver-login.html" class="nav-item">
+  <span>
+    <i class="fa-solid fa-id-card"></i>
+    <span>Driver</span>
+  </span>
+</a>
+
+
+        <!-- LOGOUT -->
+        <a href="#" class="nav-item" onclick="logoutUser(event)">
+          <span>
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+          </span>
+        </a>
+
+      </nav>
+
+
+      <!-- SIDEBAR FOOTER -->
+      <div class="sidebar-footer">
+        <i class="fa-solid fa-building-columns"></i>
+        <p>
+          Safer Rides<br>
+          Brighter Futures
+        </p>
+      </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+      <!-- =================================================
+           WELCOME BANNER
+           ================================================= -->
+
+      <section class="welcome-banner fade-in">
+
+        <div class="welcome-avatar">
+          <i class="fa-solid fa-circle-user"></i>
+        </div>
+
+        <div class="welcome-text">
+          <h2>Welcome Back, Nowshin!</h2>
+          <p>
+            Track your bus, check ETA, and stay safe
+            on your journey.
+          </p>
+        </div>
+
+        <div class="welcome-illustration">
+          <span>🚌</span>
+          <span>🏫</span>
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           STAT CARDS
+           ================================================= -->
+
+      <section class="stat-grid">
+
+        <!-- CURRENT LOCATION -->
+        <div class="stat-card fade-in">
+          <div class="stat-icon blue">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Current Location</span>
+            <strong class="stat-value">Near Velachery</strong>
+            <span class="stat-sub" id="currentBusLabel">Bus 01</span>
+          </div>
+        </div>
+
+        <!-- ETA -->
+        <div class="stat-card fade-in">
+          <div class="stat-icon green">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">ETA to College</span>
+            <strong class="stat-value">
+              <span class="count-up" data-target="8">0</span> mins
+            </strong>
+            <span class="stat-sub">(2.4 km)</span>
+          </div>
+        </div>
+
+        <!-- DRIVER DETAILS -->
+        <div class="stat-card fade-in" id="driverDetailsBtn">
+          <div class="stat-icon purple">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Driver Details</span>
+            <strong class="stat-value">Mr. Rajesh</strong>
+            <span class="stat-sub">+91 98765 43210</span>
+          </div>
+        </div>
+
+        <!-- SAFETY -->
+        <div class="stat-card fade-in">
+          <div class="stat-icon teal">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Safety Status</span>
+            <strong class="stat-value safe">Normal</strong>
+            <span class="stat-sub">No alerts</span>
+          </div>
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           MAIN DASHBOARD GRID
+           ================================================= -->
+
+      <section class="dashboard-grid">
+
+
+        <!-- LEFT COLUMN -->
+        <div class="left-column">
+
+          <!-- LIVE MAP -->
+          <div class="card map-card fade-in" id="recentnotifications">
+
+            <div class="card-header">
+
+              <h3>
+                <i class="fa-solid fa-location-dot"></i>
+                Live Bus Location
+
+                <span class="live-chip">
+                  <span class="pulse-dot small"></span>
+                  Real-Time GPS
+                </span>
+              </h3>
+
+              <select id="busSelector" class="bus-select">
+                <option value="bus01">Bus 01</option>
+                <option value="bus06">Bus 06</option>
+                <option value="bus07">Bus 07</option>
+              </select>
+
+            </div>
+
+
+            <div class="map-wrapper">
+
+              <div class="map-info-pill">
+
+                <span>
+                  <i class="fa-solid fa-gauge"></i>
+                  Speed:
+                  <strong>36 km/h</strong>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-signal"></i>
+                  GPS:
+                  <strong>Strong</strong>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-temperature-half"></i>
+                  Cabin:
+                  <strong>23°C</strong>
+                </span>
+
+              </div>
+
+              <div id="map"></div>
+
+            </div>
+
+          </div>
+
+
+          <!-- BUS ROUTE -->
+          <div class="card route-card fade-in">
+
+            <div class="card-header">
+
+              <h3>
+                <i class="fa-solid fa-route"></i>
+                Bus Route
+              </h3>
+
+              <span class="route-meta" id="routeMeta">
+                Route 01 • Perambakkam to SVCET College
+              </span>
+
+            </div>
+
+            <div class="route-timeline" id="routeTimeline"></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT COLUMN -->
+        <div class="right-column">
+
+          <!-- UPCOMING BUSES -->
+          <div class="card side-card fade-in">
+
+            <div class="card-header">
+
+              <h3>
+                <i class="fa-solid fa-bus"></i>
+                Upcoming Buses
+              </h3>
+
+              <a href="#" class="view-all" id="busViewAllBtn">
+                View All
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+
+            </div>
+
+            <div class="bus-list" id="upcomingBuses"></div>
+
+          </div>
+
+
+          <!-- RECENT NOTIFICATIONS -->
+          <div class="card side-card fade-in" id="notificationsCard" style="scroll-margin-top: 110px;">
+
+            <div class="card-header">
+
+              <h3>
+                <i class="fa-solid fa-bell"></i>
+                Recent Notifications
+              </h3>
+
+              <a href="#" class="view-all" id="notificationViewAllBtn">
+                View All
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+
+            </div>
+
+            <div class="notif-list" id="notificationList"></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           SAFETY BANNER
+           ================================================= -->
+
+      <div class="safety-banner fade-in">
+
+        <div class="safety-icon">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+
+        <div class="safety-text">
+          <h4>Your Safety Matters</h4>
+          <p>
+            Stay alert, follow the rules, and travel safely
+            with our college bus service.
+          </p>
+        </div>
+
+        <div class="safety-status">
+          <span class="pulse-dot"></span>
+          Safety Active
+        </div>
+
+        <span class="safety-bus">🚌</span>
+
+      </div>
+
+
+    </main>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       LEAFLET JS
+       ===================================================== -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+  <!-- ROUTEX DATA -->
+  <script src="data.js"></script>
+
+  <!-- ROUTEX SCRIPT -->
+  <script src="script.js"></script>
+
+
+  <!-- =====================================================
+       ROUTEX LOGIN / LOGOUT FUNCTIONS
+       ===================================================== -->
+
+  <script>
+
+    function logoutUser(event) {
+
+      event.preventDefault();
+
+      const confirmLogout = confirm("Are you sure you want to logout?");
+
+      if (confirmLogout) {
+
+        /*
+         * Student does not need an account.
+         * Simply reload the dashboard after logout.
+         */
+
+        alert("You have been logged out.");
+
+        window.location.href = "index.html";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       OPEN RECENT NOTIFICATIONS
+       ===================================================== */
+
+    function openRecentNotifications() {
+
+      const notifications = document.getElementById("notificationsCard");
+
+      if (!notifications) {
+        return;
+      }
+
+      notifications.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    }
+
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ROUTEX - Admin Dashboard</title>
+
+  <!-- Same libraries as your student dashboard -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Admin CSS -->
+  <link rel="stylesheet" href="admin.css">
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       ADMIN AUTHENTICATION
+       ===================================================== -->
+
+  <script src="auth.js"></script>
+
+  <script>
+    requireRole("admin");
+  </script>
+
+
+
+  <!-- =====================================================
+       TOP NAVBAR
+       ===================================================== -->
+
+  <header class="navbar">
+
+    <div class="navbar-brand">
+
+      <div class="brand-icon">
+        <i class="fa-solid fa-bus"></i>
+      </div>
+
+      <div class="brand-text">
+        <h1>🚍 ROUTEX</h1>
+        <p>Smart College Bus System - Admin Panel</p>
+      </div>
+
+    </div>
+
+
+    <div class="navbar-actions">
+
+      <span class="status-pill">
+        <span class="pulse-dot"></span>
+        System Active
+      </span>
+
+      <!-- BELL: scrolls to the Recent Alerts card -->
+      <button class="icon-btn" aria-label="Notifications"
+        onclick="document.getElementById('alertsCard').scrollIntoView({ behavior: 'smooth', block: 'start' })">
+        <i class="fa-solid fa-bell"></i>
+        <span class="badge">3</span>
+      </button>
+
+      <div class="user-chip">
+
+        <div class="avatar">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+
+        <div class="user-text">
+          <strong>Hello, Admin</strong>
+          <span>Administrator</span>
+        </div>
+
+        <i class="fa-solid fa-chevron-down"></i>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       APP SHELL
+       ===================================================== -->
+
+  <div class="app-shell">
+
+
+    <!-- ===================================================
+         SIDEBAR
+         =================================================== -->
+
+    <aside class="sidebar">
+
+      <nav>
+
+        <!-- DASHBOARD -->
+        <a href="admin.html" class="nav-item active">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- BUSES -->
+        <a href="admin-buses.html" class="nav-item">
+          <i class="fa-solid fa-bus"></i>
+          <span>Buses</span>
+        </a>
+
+
+        <!-- DRIVERS -->
+        <a href="admin-drivers.html" class="nav-item">
+          <i class="fa-solid fa-id-badge"></i>
+          <span>Drivers</span>
+        </a>
+
+        <!-- SETTINGS -->
+        <a href="admin-settings.html" class="nav-item">
+          <i class="fa-solid fa-gear"></i>
+          <span>Settings</span>
+        </a>
+
+        <!-- STUDENT DASHBOARD -->
+        <a href="index.html" class="nav-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Student Dashboard</span>
+        </a>
+
+        <!-- LOGOUT -->
+        <a href="#" class="nav-item" onclick="adminLogout(event)">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Logout</span>
+        </a>
+
+      </nav>
+
+
+      <!-- SIDEBAR FOOTER -->
+      <div class="sidebar-footer">
+        <i class="fa-solid fa-building-columns"></i>
+        <p>
+          Safe Rides<br>
+          Better Tomorrows
+        </p>
+      </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+      <!-- =================================================
+           WELCOME BANNER
+           ================================================= -->
+
+      <section class="welcome-banner fade-in">
+
+        <div class="welcome-avatar">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+
+        <div class="welcome-text">
+          <h2>Welcome, Admin 👋</h2>
+          <p>
+            Here's what's happening with your college bus
+            system today.
+          </p>
+        </div>
+
+        <div class="admin-clock">
+          <span id="clockDate"></span>
+          <span id="clockTime"></span>
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           STAT CARDS
+           ================================================= -->
+
+      <section class="stat-grid">
+
+        <!-- TOTAL BUSES -->
+        <div class="stat-card fade-in">
+          <div class="stat-icon blue">
+            <i class="fa-solid fa-bus"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Total Buses</span>
+            <strong class="stat-value">3</strong>
+            <span class="stat-sub">Buses in system</span>
+          </div>
+        </div>
+
+        <!-- TOTAL STUDENTS -->
+        <div class="stat-card fade-in">
+          <div class="stat-icon green">
+            <i class="fa-solid fa-people-group"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Total Students</span>
+            <strong class="stat-value">140</strong>
+            <span class="stat-sub">Registered students</span>
+          </div>
+        </div>
+
+        <!-- AVAILABLE BUSES -->
+        <div class="stat-card fade-in">
+          <div class="stat-icon purple">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Buses Available</span>
+            <strong class="stat-value">3</strong>
+            <span class="stat-sub">All buses are operational</span>
+          </div>
+        </div>
+
+        <!-- ALERTS -->
+        <div class="stat-card fade-in">
+          <div class="stat-icon teal">
+            <i class="fa-solid fa-bell"></i>
+          </div>
+          <div class="stat-body">
+            <span class="stat-label">Alerts</span>
+            <strong class="stat-value">3</strong>
+            <span class="stat-sub">Total active alerts</span>
+          </div>
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           MAIN DASHBOARD GRID (map + alerts)
+           ================================================= -->
+
+      <section class="dashboard-grid">
+
+
+        <!-- LEFT COLUMN -->
+        <div class="left-column">
+
+          <!-- LIVE MAP -->
+          <div class="card map-card fade-in">
+
+            <div class="card-header">
+
+              <h3>
+                <i class="fa-solid fa-location-dot"></i>
+                Live Bus Tracking
+
+                <span class="live-chip">
+                  <span class="pulse-dot small"></span>
+                  Real-Time GPS
+                </span>
+              </h3>
+
+              <select id="busSelector" class="bus-select">
+                <option value="BUS-01">BUS-01</option>
+                <option value="BUS-02">BUS-06</option>
+                <option value="BUS-03">BUS-07</option>
+              </select>
+
+            </div>
+
+            <div class="map-wrapper">
+              <div id="map"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT COLUMN -->
+        <div class="right-column">
+
+          <!-- RECENT ALERTS -->
+          <div class="card side-card fade-in" id="alertsCard" style="scroll-margin-top: 110px;">
+
+            <div class="card-header">
+
+              <h3>
+                <i class="fa-solid fa-bell"></i>
+                Recent Alerts
+              </h3>
+
+              <a href="#" class="view-all">
+                View All
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+
+            </div>
+
+            <div id="alertList"></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           BUS MANAGEMENT (FULL WIDTH)
+           ================================================= -->
+
+      <section style="margin-bottom: 24px;">
+
+        <div class="card fade-in">
+
+          <div class="card-header">
+
+            <h3>
+              <i class="fa-solid fa-bus"></i>
+              Bus Management
+            </h3>
+
+            <a href="admin-buses.html"></a>
+
+          </div>
+
+          <div class="table-scroll">
+
+            <table class="admin-table">
+
+              <thead>
+                <tr>
+                  <th>Bus No.</th>
+                  <th>Driver</th>
+                  <th>Route</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody id="busTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           BOTTOM ROW
+           ================================================= -->
+
+      <section class="admin-grid">
+
+
+        <!-- DRIVER MANAGEMENT -->
+        <div class="card fade-in">
+
+          <div class="card-header">
+
+            <h3>
+              <i class="fa-solid fa-id-badge"></i>
+              Driver Management
+            </h3>
+
+            <a href="admin-drivers.html"></a>
+
+          </div>
+
+          <div class="table-scroll">
+
+            <table class="admin-table">
+
+              <thead>
+                <tr>
+                  <th>Driver Name</th>
+                  <th>Bus Assigned</th>
+                  <th>Phone</th>
+                  <th>Status</th>
+                  <th>Safety</th>
+                </tr>
+              </thead>
+
+              <tbody id="driverTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+
+        <!-- TRIP HISTORY -->
+        <div class="card fade-in">
+
+          <div class="card-header">
+
+            <h3>
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              Trip History
+            </h3>
+
+            <a href="#"></a>
+
+          </div>
+
+          <div class="trip-filters">
+
+            <input type="date" id="tripDate" value="2026-10-01">
+
+            <select id="tripBus">
+              <option value="all">All Buses</option>
+              <option>BUS-01</option>
+              <option>BUS-06</option>
+              <option>BUS-07</option>
+            </select>
+
+            <button id="tripSearch">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              Search
+            </button>
+
+          </div>
+
+          <div class="table-scroll">
+
+            <table class="admin-table">
+
+              <thead>
+                <tr>
+                  <th>Bus No.</th>
+                  <th>Route</th>
+                  <th>Trip Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody id="tripTable"></tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+    </main>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       LEAFLET JS
+       ===================================================== -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+
+  <!-- ADMIN SCRIPT -->
+  <script src="admin.js"></script>
+
+
+  <!-- =====================================================
+       ADMIN LOGOUT
+       ===================================================== -->
+
+  <script>
+
+    function adminLogout(event) {
+
+      event.preventDefault();
+
+      const confirmLogout = confirm("Are you sure you want to logout?");
+
+      if (confirmLogout) {
+        logout();
+      }
+
+    }
+
+  </script>
+
+
+</body>
+
+</html>

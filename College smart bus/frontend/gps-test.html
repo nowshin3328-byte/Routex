@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GPS Test</title>
+</head>
+<body>
+
+<h2>ROUTEX GPS Test</h2>
+
+<button onclick="testGPS()">Test GPS</button>
+
+<p id="status">Waiting...</p>
+
+<script>
+function testGPS() {
+
+  const status = document.getElementById("status");
+
+  status.innerText = "Requesting location...";
+
+  if (!navigator.geolocation) {
+    status.innerText = "❌ Geolocation is NOT supported";
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      status.innerText =
+        "✅ GPS WORKING\n\n" +
+        "Latitude: " + lat + "\n" +
+        "Longitude: " + lon;
+
+    },
+
+    function(error) {
+
+      status.innerText =
+        "❌ GPS ERROR\n\n" +
+        "Code: " + error.code +
+        "\nMessage: " + error.message;
+
+    },
+
+    {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 0
+    }
+  );
+}
+</script>
+
+</body>
+</html>

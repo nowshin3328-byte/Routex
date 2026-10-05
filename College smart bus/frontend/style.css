@@ -1,0 +1,1976 @@
+/* =========================================================
+   ROUTEX - SMART COLLEGE BUS TRACKING
+   COMPLETE DASHBOARD CSS
+   ========================================================= */
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #f1f5f9;
+  color: #172554;
+  min-height: 100vh;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar {
+  height: 78px;
+
+  background: #10275c;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 28px;
+
+  position: sticky;
+  top: 0;
+
+  z-index: 1000;
+
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.15);
+}
+
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+
+.brand-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #2458b8;
+
+  border-radius: 12px;
+
+  font-size: 23px;
+}
+
+
+.brand-text h1 {
+  font-size: 22px;
+  font-weight: 800;
+
+  letter-spacing: -0.5px;
+}
+
+
+.brand-text p {
+  font-size: 11px;
+
+  color: #bfdbfe;
+
+  margin-top: 3px;
+}
+
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  background: rgba(34, 197, 94, 0.13);
+
+  color: #86efac;
+
+  padding: 8px 13px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+
+  background: #22c55e;
+
+  border-radius: 50%;
+
+  display: inline-block;
+
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+
+  animation: pulse 1.8s infinite;
+}
+
+
+.pulse-dot.small {
+  width: 7px;
+  height: 7px;
+}
+
+
+@keyframes pulse {
+
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+
+}
+
+
+/* Notification Button */
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+
+  background: rgba(255,255,255,0.08);
+
+  border: none;
+
+  color: white;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  position: relative;
+
+  font-size: 15px;
+}
+
+
+.badge {
+  position: absolute;
+
+  top: -3px;
+  right: -3px;
+
+  width: 17px;
+  height: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ef4444;
+
+  color: white;
+
+  border-radius: 50%;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+
+/* User */
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  cursor: pointer;
+}
+
+
+.avatar {
+  width: 38px;
+  height: 38px;
+
+  background: #e2e8f0;
+
+  color: #64748b;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+}
+
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.user-text strong {
+  font-size: 12px;
+}
+
+
+.user-text span {
+  font-size: 10px;
+
+  color: #bfdbfe;
+
+  margin-top: 2px;
+}
+
+
+.user-chip > i {
+  font-size: 11px;
+  color: #bfdbfe;
+}
+
+
+/* =========================================================
+   APP SHELL
+   ========================================================= */
+
+.app-shell {
+  display: flex;
+  min-height: calc(100vh - 78px);
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+  width: 235px;
+
+  flex-shrink: 0;
+
+  background: #102d63;
+
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  min-height: calc(100vh - 78px);
+
+  position: sticky;
+  top: 78px;
+
+  align-self: flex-start;
+
+  overflow-y: auto;
+}
+
+
+.sidebar nav {
+  padding: 18px 12px;
+}
+
+
+.nav-item {
+  width: 100%;
+
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 0 16px;
+
+  margin-bottom: 5px;
+
+  color: #dbeafe;
+
+  text-decoration: none;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    color 0.25s ease;
+
+  border: none;
+}
+
+
+.nav-item i {
+  width: 20px;
+
+  text-align: center;
+
+  font-size: 16px;
+}
+
+
+.nav-item:hover {
+  background: rgba(255,255,255,0.09);
+
+  color: white;
+
+  transform: translateX(2px);
+}
+
+
+.nav-item.active {
+  background: #2875d8;
+
+  color: white;
+
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =========================================================
+   SMART FEATURES SIDEBAR
+   ========================================================= */
+
+.smart-menu {
+  width: 100%;
+}
+
+
+.smart-toggle {
+  font-family: inherit;
+
+  cursor: pointer;
+
+  justify-content: space-between;
+
+  background: transparent;
+
+  color: #dbeafe;
+
+  text-align: left;
+}
+
+
+.smart-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+
+.smart-left i {
+  width: 20px;
+}
+
+
+.smart-arrow {
+  width: auto !important;
+
+  font-size: 10px !important;
+
+  transition: transform 0.3s ease;
+}
+
+
+.smart-menu.open .smart-arrow {
+  transform: rotate(180deg);
+}
+
+
+.smart-menu.open .smart-toggle {
+  background: rgba(255,255,255,0.09);
+
+  color: white;
+}
+
+
+/* Submenu */
+
+.smart-submenu {
+  max-height: 0;
+
+  overflow: hidden;
+
+  opacity: 0;
+
+  padding-left: 9px;
+
+  border-left: 1px solid rgba(255,255,255,0.13);
+
+  margin-left: 25px;
+
+  transition:
+    max-height 0.4s ease,
+    opacity 0.3s ease,
+    padding-top 0.3s ease,
+    padding-bottom 0.3s ease;
+}
+
+
+.smart-menu.open .smart-submenu {
+  max-height: 600px;
+
+  opacity: 1;
+
+  padding-top: 5px;
+
+  padding-bottom: 5px;
+}
+
+
+.smart-option {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 8px 7px;
+
+  margin: 3px 0;
+
+  border-radius: 8px;
+
+  color: #cbd5e1;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+
+.smart-option:hover,
+.smart-option.selected {
+  background: rgba(255,255,255,0.09);
+
+  color: white;
+
+  transform: translateX(3px);
+}
+
+
+.option-icon {
+  width: 28px;
+  height: 28px;
+
+  min-width: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: rgba(96,165,250,0.12);
+
+  color: #60a5fa;
+
+  font-size: 12px;
+}
+
+
+.option-content {
+  min-width: 0;
+}
+
+
+.smart-option strong {
+  display: block;
+
+  font-size: 9.5px;
+
+  font-weight: 600;
+
+  line-height: 1.25;
+}
+
+
+.smart-option small {
+  display: block;
+
+  color: #94a3b8;
+
+  font-size: 8px;
+
+  margin-top: 2px;
+
+  line-height: 1.2;
+}
+
+
+/* =========================================================
+   SIDEBAR FOOTER
+   ========================================================= */
+
+.sidebar-footer {
+  text-align: center;
+
+  padding: 20px 15px 30px;
+
+  color: #93c5fd;
+}
+
+
+.sidebar-footer i {
+  font-size: 65px;
+
+  opacity: 0.3;
+
+  margin-bottom: 12px;
+}
+
+
+.sidebar-footer p {
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  color: #dbeafe;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.main-content {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 28px;
+
+  background: #f1f5f9;
+}
+
+
+/* =========================================================
+   WELCOME BANNER
+   ========================================================= */
+
+.welcome-banner {
+  min-height: 112px;
+
+  background: linear-gradient(
+    100deg,
+    #e0f2fe,
+    #eff6ff
+  );
+
+  border: 1px solid #c7dff5;
+
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 20px 25px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  margin-bottom: 20px;
+}
+
+
+.welcome-avatar {
+  width: 62px;
+  height: 62px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #1d4ed8;
+
+  font-size: 58px;
+
+  margin-right: 20px;
+}
+
+
+.welcome-text {
+  position: relative;
+
+  z-index: 2;
+}
+
+
+.welcome-text h2 {
+  font-size: 25px;
+
+  color: #12356d;
+
+  margin-bottom: 6px;
+
+  font-weight: 800;
+}
+
+
+.welcome-text p {
+  font-size: 13px;
+
+  color: #536b89;
+}
+
+
+.welcome-illustration {
+  margin-left: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  font-size: 55px;
+
+  opacity: 0.9;
+}
+
+
+/* =========================================================
+   STAT GRID
+   ========================================================= */
+
+.stat-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 15px;
+
+  margin-bottom: 18px;
+}
+
+
+.stat-card {
+  background: white;
+
+  border: 1px solid #dbe3ec;
+
+  border-radius: 10px;
+
+  min-height: 112px;
+
+  padding: 17px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  box-shadow:
+    0 2px 7px rgba(15,23,42,0.04);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.stat-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 7px 18px rgba(15,23,42,0.08);
+}
+
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+
+  min-width: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 21px;
+}
+
+
+.stat-icon.blue {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+
+.stat-icon.green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+
+.stat-icon.purple {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+
+.stat-icon.teal {
+  background: #d1fae5;
+  color: #059669;
+}
+
+
+.stat-body {
+  min-width: 0;
+}
+
+
+.stat-label {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 11px;
+
+  margin-bottom: 5px;
+}
+
+
+.stat-value {
+  display: block;
+
+  color: #173b75;
+
+  font-size: 18px;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+
+.stat-value.safe {
+  color: #16a34a;
+}
+
+
+.stat-sub {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 10px;
+
+  margin-top: 4px;
+}
+
+
+.progress-track {
+  width: 100px;
+
+  height: 6px;
+
+  background: #e2e8f0;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  margin-top: 8px;
+}
+
+
+.progress-fill {
+  width: 0;
+
+  height: 100%;
+
+  background: #22c55e;
+
+  border-radius: 10px;
+
+  transition: width 1s ease;
+}
+
+
+/* =========================================================
+   DASHBOARD GRID
+   ========================================================= */
+
+.dashboard-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 2.1fr)
+    minmax(300px, 0.9fr);
+
+  gap: 18px;
+
+  align-items: start;
+}
+
+
+.left-column,
+.right-column {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.card {
+  background: white;
+
+  border: 1px solid #dbe3ec;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 7px rgba(15,23,42,0.04);
+
+  overflow: hidden;
+}
+
+
+.card-header {
+  min-height: 55px;
+
+  padding: 0 17px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  border-bottom: 1px solid #edf2f7;
+}
+
+
+.card-header h3 {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #19396d;
+
+  font-size: 15px;
+
+  font-weight: 700;
+}
+
+
+.card-header h3 > i {
+  color: #2456a5;
+}
+
+
+.live-chip {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  margin-left: 7px;
+
+  padding: 4px 8px;
+
+  background: #ecfdf5;
+
+  color: #15803d;
+
+  border-radius: 15px;
+
+  font-size: 8px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   BUS SELECTOR
+   ========================================================= */
+
+.bus-select {
+  border: 1px solid #d5deea;
+
+  background: white;
+
+  color: #1e3a5f;
+
+  border-radius: 7px;
+
+  padding: 7px 10px;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+
+.bus-select:focus {
+  border-color: #2563eb;
+}
+
+
+/* =========================================================
+   MAP
+   ========================================================= */
+
+.map-wrapper {
+  position: relative;
+
+  padding: 10px;
+}
+
+
+#map {
+  width: 100%;
+
+  height: 380px;
+
+  border-radius: 9px;
+
+  overflow: hidden;
+}
+
+
+.map-info-pill {
+  position: absolute;
+
+  top: 19px;
+
+  left: 19px;
+
+  z-index: 500;
+
+  background: rgba(255,255,255,0.94);
+
+  backdrop-filter: blur(5px);
+
+  border-radius: 7px;
+
+  padding: 7px 9px;
+
+  display: flex;
+
+  gap: 13px;
+
+  box-shadow:
+    0 2px 10px rgba(0,0,0,0.12);
+
+  font-size: 9px;
+
+  color: #64748b;
+}
+
+
+.map-info-pill span {
+  white-space: nowrap;
+}
+
+
+.map-info-pill i {
+  color: #2563eb;
+
+  margin-right: 3px;
+}
+
+
+.map-info-pill strong {
+  color: #1e3a5f;
+}
+
+
+/* =========================================================
+   LIVE BUS MARKER
+   ========================================================= */
+
+.live-bus-marker {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffc107;
+
+  color: #172554;
+
+  border: 3px solid white;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 0 5px rgba(255,193,7,0.25),
+    0 3px 12px rgba(0,0,0,0.25);
+
+  animation: busPulse 1.8s infinite;
+}
+
+
+.live-bus-marker i {
+  font-size: 17px;
+}
+
+
+@keyframes busPulse {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+
+/* =========================================================
+   ROUTE
+   ========================================================= */
+
+.route-card {
+  padding-bottom: 10px;
+}
+
+
+.route-meta {
+  color: #64748b;
+
+  font-size: 10px;
+
+  text-align: right;
+}
+
+
+.route-timeline {
+  position: relative;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  padding: 25px 30px 18px;
+}
+
+
+.route-line {
+  position: absolute;
+
+  left: 65px;
+
+  right: 65px;
+
+  top: 39px;
+
+  height: 3px;
+
+  background: #dbe3ef;
+
+  z-index: 0;
+}
+
+
+.route-stop {
+  position: relative;
+
+  z-index: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+
+  width: 20%;
+}
+
+
+.route-stop .dot {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background: #cbd5e1;
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 3px solid white;
+
+  box-shadow: 0 0 0 1px #dbe3ef;
+
+  margin-bottom: 7px;
+
+  font-size: 10px;
+}
+
+
+.route-stop.done .dot {
+  background: #24509b;
+
+  box-shadow:
+    0 0 0 5px rgba(37,80,155,0.1);
+}
+
+
+.route-stop.active .dot {
+  background: #24509b;
+
+  box-shadow:
+    0 0 0 5px rgba(37,80,155,0.16);
+
+  transform: scale(1.12);
+}
+
+
+.route-stop.destination .dot {
+  background: #ef4444;
+
+  box-shadow:
+    0 0 0 4px rgba(239,68,68,0.12);
+}
+
+
+.route-stop strong {
+  color: #253b60;
+
+  font-size: 10px;
+
+  line-height: 1.3;
+}
+
+
+.route-stop span {
+  color: #8a98aa;
+
+  font-size: 8px;
+
+  margin-top: 2px;
+}
+
+
+/* =========================================================
+   UPCOMING BUS
+   ========================================================= */
+
+.bus-list {
+  padding: 7px 10px 10px;
+}
+
+
+.bus-item {
+  min-height: 73px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  padding: 10px 8px;
+
+  border-bottom: 1px solid #edf1f5;
+
+  transition: background 0.2s ease;
+}
+
+
+.bus-item:last-child {
+  border-bottom: none;
+}
+
+
+.bus-item:hover {
+  background: #f8fafc;
+
+  border-radius: 8px;
+}
+
+
+.bus-item strong {
+  display: block;
+
+  color: #183c72;
+
+  font-size: 12px;
+}
+
+
+.bus-item strong i {
+  color: #2456a5;
+
+  margin-right: 5px;
+}
+
+
+.bus-item p {
+  color: #718096;
+
+  font-size: 9px;
+
+  margin-top: 5px;
+}
+
+
+.bus-right {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 5px;
+}
+
+
+.status-badge {
+  padding: 4px 7px;
+
+  border-radius: 6px;
+
+  font-size: 8px;
+
+  font-weight: 700;
+}
+
+
+.status-badge.ontime {
+  color: #15803d;
+
+  background: #dcfce7;
+}
+
+
+.status-badge.delayed {
+  color: #b45309;
+
+  background: #fef3c7;
+}
+
+
+.eta-text {
+  color: #64748b;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   VIEW ALL
+   ========================================================= */
+
+.view-all {
+  color: #2875d8;
+
+  text-decoration: none;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+.view-all:hover {
+  color: #1d4ed8;
+}
+
+
+.view-all i {
+  margin-left: 3px;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+.notif-list {
+  padding: 4px 10px 8px;
+}
+
+
+.notif-item {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  padding: 10px 6px;
+
+  border-bottom: 1px solid #edf1f5;
+}
+
+
+.notif-item:last-child {
+  border-bottom: none;
+}
+
+
+.notif-icon {
+  width: 25px;
+  height: 25px;
+
+  min-width: 25px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 9px;
+}
+
+
+.notif-icon.success {
+  background: #dcfce7;
+
+  color: #16a34a;
+}
+
+
+.notif-icon.info {
+  background: #dbeafe;
+
+  color: #2563eb;
+}
+
+
+.notif-icon.warning {
+  background: #fef3c7;
+
+  color: #d97706;
+}
+
+
+.notif-icon.info-purple {
+  background: #ede9fe;
+
+  color: #7c3aed;
+}
+
+
+.notif-item p {
+  color: #334155;
+
+  font-size: 9.5px;
+
+  line-height: 1.4;
+}
+
+
+.notif-item > div > span {
+  display: block;
+
+  color: #94a3b8;
+
+  font-size: 8px;
+
+  margin-top: 3px;
+}
+
+
+/* =========================================================
+   SAFETY BANNER
+   ========================================================= */
+
+.safety-banner {
+  min-height: 82px;
+
+  margin-top: 20px;
+
+  padding: 15px 20px;
+
+  background:
+    linear-gradient(
+      100deg,
+      #ecfdf5,
+      #f0fdf4,
+      #eff6ff
+    );
+
+  border: 1px solid #bbf7d0;
+
+  border-radius: 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  overflow: hidden;
+
+  position: relative;
+}
+
+
+.safety-icon {
+  width: 46px;
+  height: 46px;
+
+  min-width: 46px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #22c55e;
+
+  color: white;
+
+  border-radius: 50%;
+
+  font-size: 20px;
+}
+
+
+.safety-text h4 {
+  color: #166534;
+
+  font-size: 14px;
+
+  margin-bottom: 4px;
+}
+
+
+.safety-text p {
+  color: #64748b;
+
+  font-size: 10px;
+
+  line-height: 1.4;
+}
+
+
+.safety-status {
+  margin-left: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 7px 10px;
+
+  background: #dcfce7;
+
+  color: #15803d;
+
+  border-radius: 20px;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+.safety-bus {
+  font-size: 42px;
+
+  animation: safetyBusMove 3s ease-in-out infinite;
+}
+
+
+@keyframes safetyBusMove {
+
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-7px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+.fade-in {
+  animation: fadeIn 0.55s ease both;
+}
+
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+  .stat-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .right-column {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    align-items: start;
+  }
+
+}
+
+
+@media (max-width: 850px) {
+
+  .sidebar {
+    width: 190px;
+  }
+
+
+  .main-content {
+    padding: 18px;
+  }
+
+
+  .navbar {
+    padding: 0 16px;
+  }
+
+
+  .status-pill {
+    display: none;
+  }
+
+
+  .brand-text p {
+    display: none;
+  }
+
+
+  .welcome-illustration {
+    font-size: 42px;
+  }
+
+
+  .map-info-pill {
+    gap: 7px;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .navbar {
+    height: 68px;
+  }
+
+
+  .app-shell {
+    min-height: calc(100vh - 68px);
+  }
+
+
+  .sidebar {
+    position: static;
+
+    width: 100%;
+
+    min-height: auto;
+  }
+
+
+  .app-shell {
+    flex-direction: column;
+  }
+
+
+  .sidebar nav {
+    display: flex;
+
+    overflow-x: auto;
+
+    padding: 8px;
+  }
+
+
+  .nav-item {
+    min-width: 125px;
+
+    margin-bottom: 0;
+
+    justify-content: center;
+
+    padding: 0 10px;
+  }
+
+
+  .sidebar-footer {
+    display: none;
+  }
+
+
+  .smart-menu {
+    min-width: 145px;
+  }
+
+
+  .smart-submenu {
+    position: absolute;
+
+    background: #102d63;
+
+    z-index: 100;
+
+    margin-left: 0;
+
+    border: none;
+
+    border-radius: 8px;
+
+    width: 245px;
+  }
+
+
+  .smart-menu {
+    position: relative;
+  }
+
+
+  .main-content {
+    padding: 14px;
+  }
+
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .right-column {
+    display: flex;
+  }
+
+
+  .welcome-banner {
+    padding: 17px;
+  }
+
+
+  .welcome-avatar {
+    display: none;
+  }
+
+
+  .welcome-text h2 {
+    font-size: 20px;
+  }
+
+
+  .welcome-illustration {
+    font-size: 30px;
+  }
+
+
+  .route-timeline {
+    padding-left: 10px;
+
+    padding-right: 10px;
+  }
+
+
+  .route-line {
+    left: 35px;
+
+    right: 35px;
+  }
+
+
+  .route-stop strong {
+    font-size: 8px;
+  }
+
+
+  .route-stop span {
+    font-size: 7px;
+  }
+
+
+  .safety-status {
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .navbar-actions .user-text {
+    display: none;
+  }
+
+
+  .brand-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+
+  .brand-text h1 {
+    font-size: 18px;
+  }
+
+
+  #map {
+    height: 300px;
+  }
+
+
+  .map-info-pill {
+    display: none;
+  }
+
+
+  .card-header h3 {
+    font-size: 12px;
+  }
+
+
+  .route-meta {
+    display: none;
+  }
+
+
+  .safety-bus {
+    font-size: 30px;
+  }
+
+}
+/* =========================================================
+   ROUTEX - BLUE HOVER EFFECT
+   FOR STATUS CARDS + SMART FEATURES ONLY
+   ========================================================= */
+
+/* Smooth animation */
+.stat-card,
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+/* Blue line at the top */
+.stat-card::before,
+.feature-card::before {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: #2875d8;
+
+  transform: scaleX(0);
+  transform-origin: left;
+
+  transition: transform 0.3s ease;
+
+  z-index: 5;
+}
+
+
+/* Hover effect */
+.stat-card:hover,
+.feature-card:hover {
+  border-color: #2875d8 !important;
+
+  box-shadow:
+    0 0 0 2px rgba(40, 117, 216, 0.12),
+    0 8px 20px rgba(40, 117, 216, 0.12) !important;
+
+  transform: translateY(-3px);
+}
+
+
+/* Show blue line when cursor is over the card */
+.stat-card:hover::before,
+.feature-card:hover::before {
+  transform: scaleX(1);
+}
+/* Trip History: Search button fills the rest of the row */
+.trip-filters {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 12px;
+}
+
+#tripSearch {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+/* Trip History: show only 4 columns (hide the extra 4th cell) */
+#tripTable td:nth-child(4) {
+  display: none;
+}
+/* Trip History: center the Trip Time column */
+#tripTable td:nth-child(3),
+table:has(#tripTable) th:nth-child(3) {
+  text-align: center;
+}
+/* Bus Management: hide the View/Track buttons column and its title */
+table td:has(.btn-sm),
+table:has(.btn-sm) th:nth-child(5) {
+  display: none;
+}
+/* Bus Management: make the table fill the card with equal columns */
+table:has(.btn-sm) {
+  width: 100%;
+  table-layout: fixed;
+}
+
+table:has(.btn-sm) th,
+table:has(.btn-sm) td {
+  width: 25%;
+}
+/* Bus Management: stretch across the full width */
+.card:has(table .btn-sm) {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 100%;
+}
+/* Leave space for the top bar when scrolling to the card */
+#alertsCard,
+#notificationsCard {
+  scroll-margin-top: 110px;
+}

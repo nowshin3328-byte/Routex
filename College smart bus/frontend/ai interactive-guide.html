@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ROUTEX - AI Interactive Guide</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f1f5f9;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            min-height: 75px;
+            background: #10275c;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 14px 35px;
+
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            font-size: 29px;
+        }
+
+        .brand-name {
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            font-size: 11px;
+            color: #cbd5e1;
+            margin-top: 3px;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 17px;
+
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 8px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.25s;
+        }
+
+        .back-btn:hover {
+            background: #2875d8;
+            border-color: #2875d8;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            width: min(950px, 92%);
+            margin: 45px auto 60px;
+        }
+
+        .page-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-heading .main-icon {
+            width: 65px;
+            height: 65px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #e5efff;
+            color: #2875d8;
+
+            border-radius: 16px;
+
+            font-size: 28px;
+        }
+
+        .page-heading h1 {
+            font-size: 30px;
+            color: #10275c;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* =========================
+           GUIDE CARD
+        ========================= */
+
+        .guide-card {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .guide-card h2 {
+            color: #10275c;
+            font-size: 19px;
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           FOUR FEATURES
+        ========================= */
+
+        .feature-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 16px;
+        }
+
+        .feature-card {
+            border: 2px solid #e2e8f0;
+
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 13px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .feature-card:hover {
+            border-color: #2875d8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(40,117,216,0.10);
+        }
+
+        .feature-card.active {
+            border-color: #2875d8;
+            background: #f4f8ff;
+        }
+
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #e5efff;
+            color: #2875d8;
+
+            border-radius: 11px;
+
+            font-size: 20px;
+
+            margin-bottom: 13px;
+        }
+
+        .feature-card h3 {
+            color: #10275c;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           GUIDE RESULT
+        ========================= */
+
+        .guide-result {
+            display: none;
+
+            margin-top: 28px;
+
+            border-top: 1px solid #e2e8f0;
+
+            padding-top: 28px;
+        }
+
+        .guide-result.show {
+            display: block;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin-bottom: 20px;
+        }
+
+        .result-header i {
+            color: #2875d8;
+            font-size: 22px;
+        }
+
+        .result-header h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #10275c;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .step {
+            display: flex;
+            gap: 15px;
+
+            padding: 16px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 11px;
+        }
+
+        .step-number {
+            min-width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: #2875d8;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .step-content h3 {
+            color: #10275c;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 14px 18px;
+            }
+
+            .brand-subtitle {
+                display: none;
+            }
+
+            .brand-name {
+                font-size: 19px;
+            }
+
+            .back-btn {
+                font-size: 12px;
+                padding: 9px 11px;
+            }
+
+            .container {
+                margin-top: 30px;
+            }
+
+            .page-heading h1 {
+                font-size: 25px;
+            }
+
+            .guide-card {
+                padding: 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🚍
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    ROUTEX
+                </div>
+
+                <div class="brand-subtitle">
+                    AI-Based Smart College Bus Tracking & Safety Management System
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="smart-features.html"
+            class="back-btn"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Smart Features
+
+        </a>
+
+    </nav>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+
+        <div class="page-heading">
+
+            <div class="main-icon">
+                <i class="fa-solid fa-compass"></i>
+            </div>
+
+            <h1>
+                AI Interactive Guide
+            </h1>
+
+            <p>
+                Select what you need help with and get simple step-by-step guidance.
+            </p>
+
+        </div>
+
+
+
+        <div class="guide-card">
+
+
+            <h2>
+                What do you need help with?
+            </h2>
+
+
+            <!-- FOUR IMPORTANT FEATURES -->
+
+            <div class="feature-grid">
+
+
+                <!-- 1 -->
+
+                <div
+                    class="feature-card"
+                    data-guide="tracking"
+                >
+
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <h3>
+                        Bus Tracking
+                    </h3>
+
+                    <p>
+                        Learn how to track your college bus and view its location.
+                    </p>
+
+                </div>
+
+
+
+                <!-- 2 -->
+
+                <div
+                    class="feature-card"
+                    data-guide="emergency"
+                >
+
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+
+                    <h3>
+                        Emergency Help
+                    </h3>
+
+                    <p>
+                        Get guidance on what to do during a bus emergency.
+                    </p>
+
+                </div>
+
+
+
+                <!-- 3 -->
+
+                <div
+                    class="feature-card"
+                    data-guide="issue"
+                >
+
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-flag"></i>
+                    </div>
+
+                    <h3>
+                        Report Bus Issue
+                    </h3>
+
+                    <p>
+                        Learn how to report a bus delay, breakdown or safety issue.
+                    </p>
+
+                </div>
+
+
+
+                <!-- 4 -->
+
+                <div
+                    class="feature-card"
+                    data-guide="route"
+                >
+
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-route"></i>
+                    </div>
+
+                    <h3>
+                        Find Bus / Route
+                    </h3>
+
+                    <p>
+                        Find your bus route, stops and important route information.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 RESULT
+            ========================= -->
+
+            <div
+                class="guide-result"
+                id="guideResult"
+            >
+
+                <div class="result-header">
+
+                    <i
+                        class="fa-solid fa-wand-magic-sparkles"
+                    ></i>
+
+                    <h2 id="resultTitle">
+                        Guide
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="steps"
+                    id="stepsContainer"
+                >
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        const guides = {
+
+            tracking: {
+
+                title: "How to Track Your Bus",
+
+                steps: [
+
+                    {
+                        title: "Open Live Tracking",
+                        text: "Open the Live Tracking option from the ROUTEX dashboard."
+                    },
+
+                    {
+                        title: "Select Your Bus",
+                        text: "Select the bus you want to track, such as BUS-01, BUS-06 or BUS-07."
+                    },
+
+                    {
+                        title: "Check the Map",
+                        text: "View the bus marker on the map to see its latest available location."
+                    },
+
+                    {
+                        title: "Follow Your Route",
+                        text: "Compare the bus location with your route and boarding stop."
+
+                    }
+
+                ]
+
+            },
+
+
+            emergency: {
+
+                title: "What to Do During an Emergency",
+
+                steps: [
+
+                    {
+                        title: "Stay Safe",
+                        text: "Move away from immediate danger if it is safe to do so."
+                    },
+
+                    {
+                        title: "Identify the Emergency",
+                        text: "Check whether the situation involves an accident, medical emergency, fire or another serious problem."
+                    },
+
+                    {
+                        title: "Get Help",
+                        text: "Contact the appropriate emergency service or college emergency contact."
+                    },
+
+                    {
+                        title: "Share Bus Information",
+                        text: "If safe, provide the bus number and current location to the responsible team."
+                    }
+
+                ]
+
+            },
+
+
+            issue: {
+
+                title: "How to Report a Bus Issue",
+
+                steps: [
+
+                    {
+                        title: "Open AI Issue Reporting",
+                        text: "Go to Smart Features and open AI Issue Reporting."
+                    },
+
+                    {
+                        title: "Select the Bus",
+                        text: "Choose the bus number related to the problem."
+                    },
+
+                    {
+                        title: "Describe the Issue",
+                        text: "Select the issue type and clearly describe what happened."
+                    },
+
+                    {
+                        title: "Submit",
+                        text: "Click Analyze & Submit. ROUTEX will analyze the report and assign a priority level."
+
+                    }
+
+                ]
+
+            },
+
+
+            route: {
+
+                title: "How to Find Your Bus / Route",
+
+                steps: [
+
+                    {
+                        title: "Open Bus Details",
+                        text: "Open the Bus Details section from the ROUTEX dashboard."
+                    },
+
+                    {
+                        title: "Select Your Bus",
+                        text: "Choose BUS-01, BUS-06 or BUS-07."
+                    },
+
+                    {
+                        title: "Check Stops",
+                        text: "View the available stops and route information."
+                    },
+
+                    {
+                        title: "Check Timings",
+                        text: "Use the listed timings to plan when you should reach your boarding stop."
+
+                    }
+
+                ]
+
+            }
+
+        };
+
+
+
+        const featureCards =
+            document.querySelectorAll(".feature-card");
+
+        const guideResult =
+            document.getElementById("guideResult");
+
+        const resultTitle =
+            document.getElementById("resultTitle");
+
+        const stepsContainer =
+            document.getElementById("stepsContainer");
+
+
+
+        featureCards.forEach(function(card) {
+
+            card.addEventListener("click", function() {
+
+                const guideName =
+                    card.dataset.guide;
+
+                const guide =
+                    guides[guideName];
+
+                if (!guide) {
+                    return;
+                }
+
+
+                featureCards.forEach(function(item) {
+
+                    item.classList.remove("active");
+
+                });
+
+
+                card.classList.add("active");
+
+
+                resultTitle.textContent =
+                    guide.title;
+
+
+                stepsContainer.innerHTML = "";
+
+
+                guide.steps.forEach(function(step, index) {
+
+                    const stepElement =
+                        document.createElement("div");
+
+                    stepElement.className =
+                        "step";
+
+
+                    stepElement.innerHTML = `
+
+                        <div class="step-number">
+                            ${index + 1}
+                        </div>
+
+                        <div class="step-content">
+
+                            <h3>
+                                ${step.title}
+                            </h3>
+
+                            <p>
+                                ${step.text}
+                            </p>
+
+                        </div>
+
+                    `;
+
+
+                    stepsContainer.appendChild(
+                        stepElement
+                    );
+
+                });
+
+
+                guideResult.classList.add("show");
+
+
+                guideResult.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            });
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
